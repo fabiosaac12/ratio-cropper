@@ -1,11 +1,17 @@
 import React from 'react';
-import { View } from 'react-native';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { ImageHandlerProvider } from './providers/ImageHandler';
 import { ThemeProvider } from './providers/Theme';
+import { HomeScreen } from './screens/HomeScreen';
 
 export const App = () => {
   return (
-    <ThemeProvider defaultTheme="light">
-      <View></View>
-    </ThemeProvider>
+    <SafeAreaProvider>
+      <ThemeProvider defaultTheme="light">
+        <ImageHandlerProvider>
+          <HomeScreen />
+        </ImageHandlerProvider>
+      </ThemeProvider>
+    </SafeAreaProvider>
   );
 };
