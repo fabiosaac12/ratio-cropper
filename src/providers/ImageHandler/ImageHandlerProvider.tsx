@@ -1,5 +1,9 @@
 import React, { FC, useState } from 'react';
-import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
+import {
+  Asset,
+  launchCamera,
+  launchImageLibrary,
+} from 'react-native-image-picker';
 
 import {
   ImageHandlerContext,
@@ -7,7 +11,7 @@ import {
 } from './ImageHandlerContext';
 
 export const ImageHandlerProvider: FC = ({ children }) => {
-  const [image, setImage] = useState<any>();
+  const [image, setImage] = useState<Asset>();
 
   const handleTakePhotoFromGallery = async () => {
     launchImageLibrary(
@@ -32,6 +36,7 @@ export const ImageHandlerProvider: FC = ({ children }) => {
   const contextValue: ImageHandlerContextProps = {
     handleTakePhotoFromGallery,
     handleTakePhoto,
+    image,
   };
 
   return (

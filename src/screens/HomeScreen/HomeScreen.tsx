@@ -1,14 +1,27 @@
-import React from 'react';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import React, { useEffect } from 'react';
 import { View } from 'react-native';
 import { Button } from '../../components/Button';
 import { withLayout } from '../../hoc';
+import { MainStackNavigatorParamas } from '../../navigation/MainStackNavigator';
 import { useImageHandler } from '../../providers/ImageHandler';
+import { useStyles } from './HomeScreenStyles';
 
-export const HomeScreen = withLayout(() => {
-  const { handleTakePhotoFromGallery, handleTakePhoto } = useImageHandler();
+interface Props
+  extends NativeStackScreenProps<MainStackNavigatorParamas, 'home'> {}
+
+export const HomeScreen = withLayout<Props>(({ navigation }) => {
+  const styles = useStyles();
+
+  const { handleTakePhotoFromGallery, handleTakePhoto, image } =
+    useImageHandler();
+
+  useEffect(() => {
+    image && navigation.navigate('cropImage');
+  }, [image]);
 
   return (
-    <View>
+    <View style={styles.container}>
       <Button
         onPress={handleTakePhotoFromGallery}
         title="Select an image from gallery"
