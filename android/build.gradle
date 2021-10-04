@@ -34,5 +34,8 @@ allprojects {
 
         google()
         maven { url 'https://www.jitpack.io' }
+
+        jcenter()
+        maven { url 'https://google.bintray.com/exoplayer/' }
     }
 }
