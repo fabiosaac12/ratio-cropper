@@ -9,14 +9,16 @@ import {
   ImageHandlerContext,
   ImageHandlerContextProps,
 } from './ImageHandlerContext';
+import { Ratio } from './models/Ratio';
 
 export const ImageHandlerProvider: FC = ({ children }) => {
   const [image, setImage] = useState<Asset>();
+  const [ratio, setRatio] = useState<Ratio>();
 
   const handleTakePhotoFromGallery = async () => {
     launchImageLibrary(
       {
-        quality: 0.5,
+        quality: 1,
         mediaType: 'photo',
       },
       ({ assets }) => assets?.length && setImage(assets[0]),
@@ -26,7 +28,7 @@ export const ImageHandlerProvider: FC = ({ children }) => {
   const handleTakePhoto = async () => {
     launchCamera(
       {
-        quality: 0.5,
+        quality: 1,
         mediaType: 'photo',
       },
       ({ assets }) => assets?.length && setImage(assets[0]),
@@ -36,7 +38,9 @@ export const ImageHandlerProvider: FC = ({ children }) => {
   const contextValue: ImageHandlerContextProps = {
     handleTakePhotoFromGallery,
     handleTakePhoto,
+    setRatio,
     image,
+    ratio,
   };
 
   return (

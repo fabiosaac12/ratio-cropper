@@ -10,8 +10,10 @@
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
   },
   "dependencies": {
+    "@react-native-community/cameraroll": "^4.0.4",
     "@react-navigation/native": "^6.0.4",
     "@react-navigation/native-stack": "^6.2.2",
+    "fbjs": "^3.0.0",
     "react": "17.0.2",
     "react-native": "0.65.1",
     "react-native-elements": "1.0.0",

@@ -12,6 +12,9 @@ target 'RatioCropper' do
     :hermes_enabled => false
   )
 
+  pod 'react-native-cameraroll', :path => '../node_modules/@react-native-community/cameraroll'
+
+
   target 'RatioCropperTests' do
     inherit! :complete
     # Pods for testing
