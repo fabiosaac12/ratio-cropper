@@ -5488,15 +5488,15 @@ react-native-elements@1.0.0:
     react-native-ratings "^6.3.0"
     react-native-status-bar-height "^2.2.0"
 
+react-native-image-pan-zoom@^2.1.12:
+  version "2.1.12"
+  resolved "https://registry.yarnpkg.com/react-native-image-pan-zoom/-/react-native-image-pan-zoom-2.1.12.tgz#eb98bf56fb5610379bdbfdb63219cc1baca98fd2"
+  integrity sha512-BF66XeP6dzuANsPmmFsJshM2Jyh/Mo1t8FsGc1L9Q9/sVP8MJULDabB1hms+eAoqgtyhMr5BuXV3E1hJ5U5H6Q==
+
 react-native-image-picker@^4.1.1:
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/react-native-image-picker/-/react-native-image-picker-4.1.1.tgz#f5b20c77b060e4a8cad4e76ae042e1e45b4743da"
   integrity sha512-O78kljfaLQkFNzba4yWueqXlAWzDNzYUavqSQloJAf+ISGsOk95WO/a4Tp27E6hck8vPtx7u0GBrvEULyh1XAw==
-
-react-native-imageedit@^1.1.1:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/react-native-imageedit/-/react-native-imageedit-1.1.1.tgz#c85f43271ed0812958e794b240d763c27712d6b6"
-  integrity sha512-tsFUkFtKsKHsgN2S2sc0d7lMrSVZg8myxEPSzbnYvlmJhKNyp3ov5+bMEsrVT/t6IvCWZ8tXYu+zyhV77To/wA==
 
 react-native-ratings@^6.3.0:
   version "6.5.0"

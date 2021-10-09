@@ -1,50 +1,35 @@
-import React, { FC, useEffect, useState } from 'react';
-import { useWindowDimensions, View } from 'react-native';
+import React, { FC, useRef } from 'react';
+import { View } from 'react-native';
+import { Button } from '../../components/Button';
+import { ImageCropper } from '../../components/ImageCropper';
+import { ImageCropperRef } from '../../components/ImageCropper/models/ImageCropperRef';
 import { useImageHandler } from '../../providers/ImageHandler';
 import { useStyles } from './CropImageScreenStyles';
-// @ts-ignore: Non-existent declaration file for the module react-native-imageedit
-import ImageEdit from 'react-native-imageedit';
-import { handleSaveImage } from './helpers';
-import { ImageEditLibraryImageInfo } from './models/ImageEditLibraryImageinfo';
+import { handleSaveImage, hasAndroidPermission } from './helpers';
 
 export const CropImageScreen: FC = () => {
   const styles = useStyles();
   const { image, ratio } = useImageHandler();
-  const window = useWindowDimensions();
-  const [cropAreaDimensions, setCropAreaDimensions] = useState({
-    height: window.height,
-    width: window.width,
-  });
+  const imageCropperRef: ImageCropperRef = useRef();
 
-  useEffect(() => {
-    if (image && ratio) {
-      const unit = window.width / Math.max(...ratio);
+  const handleCrop = async () => {
+    if (imageCropperRef.current && (await hasAndroidPermission())) {
+      const path = await imageCropperRef.current?.handleCrop();
 
-      const cropAreaHeight = unit * ratio[0];
-      const cropAreaWidth = unit * ratio[1];
-
-      setCropAreaDimensions({
-        width: cropAreaWidth,
-        height: cropAreaHeight,
-      });
+      handleSaveImage(path);
     }
-  }, [image, ratio]);
+  };
 
   return (
     <View>
-      <ImageEdit
-        scaled={true}
-        {...cropAreaDimensions}
-        image={image?.uri}
-        onSave={(data: ImageEditLibraryImageInfo) =>
-          image?.uri && handleSaveImage(image, data)
-        }
-        containerStyle={{
-          flexDirection: 'column',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      />
+      {image?.uri && ratio && (
+        <ImageCropper
+          uri={image.uri}
+          ratio={ratio}
+          imageCropperRef={imageCropperRef}
+        />
+      )}
+      <Button title="Crop" onPress={handleCrop} />
     </View>
   );
 };
