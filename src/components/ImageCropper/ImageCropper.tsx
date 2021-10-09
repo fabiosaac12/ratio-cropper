@@ -1,5 +1,10 @@
-import React, { FC, Ref, useEffect, useRef, useState } from 'react';
-import { Image, useWindowDimensions, View } from 'react-native';
+import React, { FC, useEffect, useRef, useState } from 'react';
+import {
+  Image,
+  ImageBackground,
+  useWindowDimensions,
+  View,
+} from 'react-native';
 import { useStyles } from './ImageCropperStyles';
 import ImageZoom from 'react-native-image-pan-zoom';
 import { Dimensions } from './models/Dimensions';
@@ -142,8 +147,22 @@ export const ImageCropper: FC<Props> = ({ uri, ratio, imageCropperRef }) => {
   }, [originalImageDimensions]);
 
   return (
-    <View style={styles.container}>
-      {/* <View style={styles.area} /> */}
+    <ImageBackground source={{ uri }} style={styles.container} blurRadius={10}>
+      <View style={[styles.verticalArea, areaDimensions]} pointerEvents="none">
+        <View style={styles.verticalAreaLine} />
+        <View style={styles.verticalAreaLine} />
+        <View style={styles.verticalAreaLine} />
+        <View style={styles.verticalAreaLine} />
+      </View>
+      <View
+        style={[styles.horizontalArea, areaDimensions]}
+        pointerEvents="none"
+      >
+        <View style={styles.horizontalAreaLine} />
+        <View style={styles.horizontalAreaLine} />
+        <View style={styles.horizontalAreaLine} />
+        <View style={styles.horizontalAreaLine} />
+      </View>
       {imageDimensions && areaDimensions && minScale && (
         <ImageZoom
           cropWidth={areaDimensions.width}
@@ -172,6 +191,6 @@ export const ImageCropper: FC<Props> = ({ uri, ratio, imageCropperRef }) => {
           />
         </ImageZoom>
       )}
-    </View>
+    </ImageBackground>
   );
 };

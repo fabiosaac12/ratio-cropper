@@ -12,16 +12,31 @@ export const useStyles = makeStyles((theme) => {
       alignItems: 'center',
       overflow: 'hidden',
     },
-    area: {
+    verticalArea: {
       width: '100%',
       height: '100%',
       position: 'absolute',
       zIndex: 1,
-      backgroundColor: 'rgba(0, 0, 0, 0.5)',
+      flexDirection: 'row',
+      justifyContent: 'space-between',
     },
-    image: {
-      minWidth: '100%',
-      minHeight: '100%',
+    verticalAreaLine: {
+      height: '100%',
+      width: 2,
+      backgroundColor: 'rgba(0, 0, 0, 0.2)',
+    },
+    horizontalArea: {
+      width: '100%',
+      height: '100%',
+      position: 'absolute',
+      zIndex: 1,
+      flexDirection: 'column',
+      justifyContent: 'space-between',
+    },
+    horizontalAreaLine: {
+      width: '100%',
+      height: 2,
+      backgroundColor: 'rgba(0, 0, 0, 0.2)',
     },
   });
 });

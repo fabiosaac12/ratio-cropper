@@ -2,9 +2,9 @@ import { useTheme } from '../useTheme';
 import { Theme } from '../models/Theme';
 
 export const makeStyles =
-  <T>(generateStyles: (theme: Theme) => T) =>
-  () => {
+  <T, I>(generateStyles: (theme: Theme, params?: I) => T) =>
+  (params?: I) => {
     const { theme } = useTheme();
 
-    return generateStyles(theme);
+    return generateStyles(theme, params);
   };
