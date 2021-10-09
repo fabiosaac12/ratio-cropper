@@ -37,6 +37,8 @@ export const cropImage: CropImageHelper = async ({
     throw new Error('Quality must be between 0 and 100');
   }
 
+  console.log({ quality });
+
   const croppedImagePath = await CropImageModule.crop(
     path.startsWith('file://') ? path.substr(7) : path,
     Math.abs(Math.round(x)),

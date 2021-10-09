@@ -23,7 +23,7 @@ export const useStyles = makeStyles((theme) => {
     verticalAreaLine: {
       height: '100%',
       width: 2,
-      backgroundColor: 'rgba(0, 0, 0, 0.2)',
+      backgroundColor: `${theme.palette.primary[500]}80`,
     },
     horizontalArea: {
       width: '100%',
@@ -36,7 +36,7 @@ export const useStyles = makeStyles((theme) => {
     horizontalAreaLine: {
       width: '100%',
       height: 2,
-      backgroundColor: 'rgba(0, 0, 0, 0.2)',
+      backgroundColor: `${theme.palette.primary[500]}80`,
     },
   });
 });

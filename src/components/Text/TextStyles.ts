@@ -30,6 +30,7 @@ export const useStyles = makeStyles((theme) =>
     button: {
       color: theme.palette.text.button,
       fontSize: 16,
+      textTransform: 'uppercase',
     },
   }),
 );

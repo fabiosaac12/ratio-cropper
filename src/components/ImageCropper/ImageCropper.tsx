@@ -12,6 +12,7 @@ import { Position } from './models/Position';
 import { ImageCropperRef } from './models/ImageCropperRef';
 import { State } from './models/State';
 import { cropImage } from '../../helpers';
+import { HandleCropFunction } from './models/HandleCropFunction';
 
 interface Props {
   uri: string;
@@ -19,7 +20,12 @@ interface Props {
   imageCropperRef: ImageCropperRef;
 }
 
-export const ImageCropper: FC<Props> = ({ uri, ratio, imageCropperRef }) => {
+export const ImageCropper: FC<Props> = ({
+  uri,
+  ratio,
+  imageCropperRef,
+  children,
+}) => {
   const windowDimensions = useWindowDimensions();
   const styles = useStyles();
 
@@ -41,7 +47,7 @@ export const ImageCropper: FC<Props> = ({ uri, ratio, imageCropperRef }) => {
     areaDimensions,
   };
 
-  const handleCrop = async () => {
+  const handleCrop: HandleCropFunction = async ({ quality }) => {
     const { areaDimensions, imageDimensions, originalImageDimensions } =
       state.current;
 
@@ -75,7 +81,11 @@ export const ImageCropper: FC<Props> = ({ uri, ratio, imageCropperRef }) => {
         cropData.y = originalImageDimensions.height - cropData.height;
       }
 
-      const croppedImagePath = await cropImage({ ...cropData, path: uri });
+      const croppedImagePath = await cropImage({
+        ...cropData,
+        path: uri,
+        quality,
+      });
 
       return croppedImagePath;
     } else {
@@ -148,20 +158,19 @@ export const ImageCropper: FC<Props> = ({ uri, ratio, imageCropperRef }) => {
 
   return (
     <ImageBackground source={{ uri }} style={styles.container} blurRadius={10}>
+      {children}
       <View style={[styles.verticalArea, areaDimensions]} pointerEvents="none">
-        <View style={styles.verticalAreaLine} />
-        <View style={styles.verticalAreaLine} />
-        <View style={styles.verticalAreaLine} />
-        <View style={styles.verticalAreaLine} />
+        {[1, 2, 3, 4].map((id) => (
+          <View key={`${id}VerticalLine`} style={styles.verticalAreaLine} />
+        ))}
       </View>
       <View
         style={[styles.horizontalArea, areaDimensions]}
         pointerEvents="none"
       >
-        <View style={styles.horizontalAreaLine} />
-        <View style={styles.horizontalAreaLine} />
-        <View style={styles.horizontalAreaLine} />
-        <View style={styles.horizontalAreaLine} />
+        {[1, 2, 3, 4].map((id) => (
+          <View key={`${id}HorizontalLine`} style={styles.horizontalAreaLine} />
+        ))}
       </View>
       {imageDimensions && areaDimensions && minScale && (
         <ImageZoom
