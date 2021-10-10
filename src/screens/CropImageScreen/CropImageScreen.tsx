@@ -12,8 +12,7 @@ import { SelectRatioModal } from '../HomeScreen/SelectRatioModal';
 
 export const CropImageScreen: FC = () => {
   const styles = useStyles();
-  const { image, ratio, handleCrop, imageCropperRef, quality, setQuality } =
-    useImageHandler();
+  const { image, ratio, handleCrop, imageCropperRef } = useImageHandler();
   const modal = useModal();
 
   return (
@@ -31,24 +30,6 @@ export const CropImageScreen: FC = () => {
           />
         </ImageCropper>
       )}
-
-      <View style={styles.quantitySlider}>
-        <Text variant="button" style={styles.qualityLabel}>
-          QUALITY
-        </Text>
-        <Slider
-          values={quality}
-          min={0}
-          max={100}
-          containerStyle={styles.quantitySlider}
-          onValuesChange={setQuality}
-          selectedStyle={styles.qualitySliderSelected}
-          markerStyle={styles.qualitySliderMarker}
-        />
-        <Text variant="button" style={styles.qualityLabel}>
-          {quality}
-        </Text>
-      </View>
 
       <Button style={styles.cropButton} title="Crop" onPress={handleCrop} />
     </View>

@@ -15,19 +15,5 @@ export const useStyles = makeStyles((theme) =>
       marginTop: 'auto',
       marginBottom: 'auto',
     },
-    qualityLabel: {
-      color: theme.palette.primary[500],
-      fontWeight: '500',
-    },
-    qualitySliderSelected: {
-      height: 3,
-      backgroundColor: theme.palette.primary[500],
-    },
-    qualitySliderMarker: {
-      height: 15,
-      width: 15,
-      backgroundColor: theme.palette.primary[500],
-      marginTop: 2,
-    },
   }),
 );

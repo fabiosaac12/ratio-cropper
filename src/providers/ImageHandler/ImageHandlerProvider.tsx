@@ -25,7 +25,6 @@ export const ImageHandlerProvider: FC = ({ children }) => {
   const modal = useModal();
   const [image, setImage] = useState<Asset>();
   const [ratio, setRatio] = useState<Ratio>();
-  const [quality, setQuality] = useState([100]);
   const [recentlyUsedRatios, setRecentlyUsedRatios] = useState<Ratio[]>([]);
   const imageCropperRef: ImageCropperRef = useRef();
 
@@ -66,9 +65,7 @@ export const ImageHandlerProvider: FC = ({ children }) => {
   const handleCrop = async () => {
     if (imageCropperRef.current && (await hasAndroidPermission())) {
       try {
-        const path = await imageCropperRef.current?.handleCrop({
-          quality: quality[0],
-        });
+        const path = await imageCropperRef.current?.handleCrop();
 
         handleSaveImage(path);
         modal.handleOpen({
@@ -92,8 +89,6 @@ export const ImageHandlerProvider: FC = ({ children }) => {
     setRatio,
     image,
     ratio,
-    quality,
-    setQuality,
     imageCropperRef,
     handleCrop,
     recentlyUsedRatios,

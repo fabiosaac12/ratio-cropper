@@ -11,9 +11,7 @@ export const getItem = async <T>(key: string): Promise<T | undefined> => {
     } catch {
       return value;
     }
-  } catch (error) {
-    console.log(error);
-  }
+  } catch {}
 };
 
 export const setItem = async (key: string, value: string | any[] | object) => {
@@ -24,9 +22,7 @@ export const setItem = async (key: string, value: string | any[] | object) => {
     );
 
     return true;
-  } catch (error) {
-    console.log(error);
-  }
+  } catch {}
 
   return false;
 };
@@ -36,9 +32,7 @@ export const removeItem = async (key: string) => {
     await AsyncStorage.removeItem(key);
 
     return true;
-  } catch (error) {
-    console.log(error);
-  }
+  } catch {}
 
   return false;
 };

@@ -6,8 +6,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import android.graphics.Bitmap;
-import android.util.Log;
-
 import com.facebook.react.bridge.Promise;
 import static android.graphics.BitmapFactory.decodeFile;
 
@@ -28,29 +26,21 @@ public class CropImageModule extends ReactContextBaseJavaModule {
         Integer y,
         Integer width,
         Integer height,
-        String format,
-        Integer quality,
         Promise promise
     ) {
-        Log.d("FORMAT", format);
-        Log.d("PATH", path);
-        Log.d("QUALITY", String.valueOf(quality));
-
         String croppedImagePath = getReactApplicationContext().getApplicationInfo().dataDir +
             File.separator +
             "cache" +
             File.separator +
             "cropped-image-" +
             System.currentTimeMillis() +
-            "." +
-            "png";
+            ".png";
 
         Bitmap croppedImage;
 
         try {
             File imageFile = new File(path);
             Bitmap image = decodeFile(imageFile.getAbsolutePath());
-            Log.d("ABSOLUTE PATH", imageFile.getAbsolutePath());
             croppedImage = Bitmap.createBitmap(image, x, y, width, height);
         } catch (Exception error) {
             promise.reject(error);
@@ -61,11 +51,7 @@ public class CropImageModule extends ReactContextBaseJavaModule {
 
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
 
-        croppedImage.compress(Bitmap.CompressFormat.PNG, quality, bos);
-//        if (format == "jepg") {
-//            croppedImage.compress(Bitmap.CompressFormat.JPEG, quality, bos);
-//        } else  {
-//        }
+        croppedImage.compress(Bitmap.CompressFormat.PNG, 100, bos);
 
         byte[] croppedImageByteArray = bos.toByteArray();
 

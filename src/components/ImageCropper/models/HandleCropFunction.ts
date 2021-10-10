@@ -1,3 +1,1 @@
-export type HandleCropFunction = (props: {
-  quality: number;
-}) => Promise<string>;
+export type HandleCropFunction = () => Promise<string>;
