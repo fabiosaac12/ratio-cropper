@@ -39,19 +39,15 @@ export const SelectRatioModal = () => {
         <Button
           style={styles.ratio}
           onPress={() => handleSetRatio(screenRatio)}
-        >
-          <Text variant="button">
-            {screenRatio[0]} : {screenRatio[1]}
-          </Text>
-        </Button>
+          title={`${screenRatio[0]} : ${screenRatio[1]}`}
+          variant="outlined"
+        />
         <Button
           style={styles.ratio}
           onPress={() => handleSetRatio([screenRatio[1], screenRatio[0]])}
-        >
-          <Text variant="button">
-            {screenRatio[1]} : {screenRatio[0]}
-          </Text>
-        </Button>
+          title={`${screenRatio[1]} : ${screenRatio[0]}`}
+          variant="outlined"
+        />
       </View>
 
       {recentlyUsedRatios.length && (
@@ -63,11 +59,9 @@ export const SelectRatioModal = () => {
                 key={`recently-used-${ratio}`}
                 style={styles.ratio}
                 onPress={() => handleSetRatio(ratio)}
-              >
-                <Text variant="button">
-                  {ratio[0]} : {ratio[1]}
-                </Text>
-              </Button>
+                title={`${ratio[0]} : ${ratio[1]}`}
+                variant="outlined"
+              />
             ))}
           </View>
         </>

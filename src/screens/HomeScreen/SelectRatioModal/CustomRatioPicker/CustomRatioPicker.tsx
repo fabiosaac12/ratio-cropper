@@ -49,11 +49,9 @@ export const CustomRatioPicker: FC<Props> = ({ handleSetRatio }) => {
         style={styles.applyButton}
         onPress={() => handleSetRatio(values)}
         disabled={!verifyValues()}
-      >
-        <Text variant="button">
-          {values[0]} : {values[1]}
-        </Text>
-      </Button>
+        color="primary"
+        title={`${values[0]} : ${values[1]}`}
+      />
     </View>
   );
 };
