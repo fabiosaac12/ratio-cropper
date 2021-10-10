@@ -32,7 +32,7 @@ export const handleUpdateRecentlyUsedRatios = async (ratio: Ratio) => {
       ratio,
       ...recentlyUsedRatios
         .filter((recentlyUsedRatio) => recentlyUsedRatio !== ratio)
-        .slice(0, 4),
+        .slice(0, 3),
     ];
   } else {
     newRecentlyUsedRatios = [ratio];

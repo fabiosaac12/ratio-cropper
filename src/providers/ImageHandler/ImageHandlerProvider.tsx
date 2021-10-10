@@ -17,6 +17,7 @@ import {
 } from './helpers';
 import { ImageCropperRef } from '../../components/ImageCropper/models/ImageCropperRef';
 import { getItem } from '../../helpers/localStorage';
+import { simplifyRatio } from '../../screens/HomeScreen/SelectRatioModal/helpers';
 
 export const ImageHandlerProvider: FC = ({ children }) => {
   const [image, setImage] = useState<Asset>();
@@ -24,6 +25,12 @@ export const ImageHandlerProvider: FC = ({ children }) => {
   const [quality, setQuality] = useState([100]);
   const [recentlyUsedRatios, setRecentlyUsedRatios] = useState<Ratio[]>([]);
   const imageCropperRef: ImageCropperRef = useRef();
+
+  useEffect(() => {
+    image?.height &&
+      image?.width &&
+      setRatio(simplifyRatio([image.height, image.width]));
+  }, [image]);
 
   useEffect(() => {
     (async () => {
