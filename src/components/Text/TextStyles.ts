@@ -31,6 +31,7 @@ export const useStyles = makeStyles((theme) =>
       color: theme.palette.text.button,
       fontSize: 16,
       textTransform: 'uppercase',
+      fontWeight: '500',
     },
   }),
 );

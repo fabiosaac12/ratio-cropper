@@ -5,13 +5,14 @@ import { Text } from '../Text/Text';
 
 interface Props extends TouchableOpacityProps {
   color?: 'primary' | 'secondary';
-  title: string;
+  title?: string;
 }
 
 export const Button: React.FC<Props> = ({
   color = 'primary',
   title,
   style,
+  children,
   ...props
 }) => {
   const styles = useStyles();
@@ -27,7 +28,7 @@ export const Button: React.FC<Props> = ({
       ]}
       {...props}
     >
-      <Text variant="button">{title}</Text>
+      {children ? children : <Text variant="button">{title}</Text>}
     </TouchableOpacity>
   );
 };

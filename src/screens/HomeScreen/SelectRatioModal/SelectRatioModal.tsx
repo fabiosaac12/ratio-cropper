@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/core';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { Button } from '../../../components/Button';
@@ -6,10 +6,21 @@ import { MainStackNavigatorParamas } from '../../../navigation/MainStackNavigato
 import { useImageHandler } from '../../../providers/ImageHandler';
 import { Ratio } from '../../../providers/ImageHandler/models/Ratio';
 import { useModal } from '../../../providers/Modal';
+import { Dimensions, View } from 'react-native';
+import { useStyles } from './SelectRatioModalStyles';
+import { defaultRatios, simplifyRatio } from './helpers';
+import { Text } from '../../../components/Text';
+import Icon from 'react-native-vector-icons/Ionicons';
+import { CustomRatioPicker } from './CustomRatioPicker';
+
+const screen = Dimensions.get('screen');
+
+const screenRatio: Ratio = simplifyRatio([screen.height, screen.width]);
 
 export const SelectRatioModal = () => {
+  const styles = useStyles();
   const modal = useModal();
-  const { setRatio } = useImageHandler();
+  const { setRatio, recentlyUsedRatios } = useImageHandler();
   const navigation =
     useNavigation<NativeStackNavigationProp<MainStackNavigatorParamas>>();
 
@@ -21,11 +32,60 @@ export const SelectRatioModal = () => {
 
   return (
     <>
-      <Button title="16:9" onPress={() => handleSetRatio([16, 9])} />
-      <Button title="19:9" onPress={() => handleSetRatio([19, 9])} />
-      <Button title="12:5" onPress={() => handleSetRatio([12, 5])} />
-      <Button title="4:3" onPress={() => handleSetRatio([4, 3])} />
-      <Button title="1:1" onPress={() => handleSetRatio([1, 1])} />
+      <CustomRatioPicker handleSetRatio={handleSetRatio} />
+
+      <Text style={styles.title}>Your Phone Screen Ratio</Text>
+      <View style={styles.ratiosContainer}>
+        <Button
+          style={styles.ratio}
+          onPress={() => handleSetRatio(screenRatio)}
+        >
+          <Text variant="button">
+            {screenRatio[0]} : {screenRatio[1]}
+          </Text>
+        </Button>
+        <Button
+          style={styles.ratio}
+          onPress={() => handleSetRatio([screenRatio[1], screenRatio[0]])}
+        >
+          <Text variant="button">
+            {screenRatio[1]} : {screenRatio[0]}
+          </Text>
+        </Button>
+      </View>
+
+      {recentlyUsedRatios.length && (
+        <>
+          <Text style={styles.title}>Recently Used Ratios</Text>
+          <View style={styles.ratiosContainer}>
+            {recentlyUsedRatios.map((ratio) => (
+              <Button
+                key={`recently-used-${ratio}`}
+                style={styles.ratio}
+                onPress={() => handleSetRatio(ratio)}
+              >
+                <Text variant="button">
+                  {ratio[0]} : {ratio[1]}
+                </Text>
+              </Button>
+            ))}
+          </View>
+        </>
+      )}
+
+      <Text style={styles.title}>Default Ratios</Text>
+      <View style={styles.ratiosContainer}>
+        {defaultRatios.map(({ ratio, icon, text }) => (
+          <Button
+            key={`${icon}-${text}`}
+            style={styles.ratio}
+            onPress={() => handleSetRatio(ratio)}
+          >
+            <Icon size={20} name={icon} style={styles.ratioIcon} />
+            <Text variant="button">{text}</Text>
+          </Button>
+        ))}
+      </View>
     </>
   );
 };

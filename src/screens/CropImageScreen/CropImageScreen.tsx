@@ -1,11 +1,9 @@
-import React, { FC, useRef, useState } from 'react';
+import React, { FC } from 'react';
 import { View } from 'react-native';
 import { Button } from '../../components/Button';
 import { ImageCropper } from '../../components/ImageCropper';
-import { ImageCropperRef } from '../../components/ImageCropper/models/ImageCropperRef';
 import { useImageHandler } from '../../providers/ImageHandler';
 import { useStyles } from './CropImageScreenStyles';
-import { handleSaveImage, hasAndroidPermission } from './helpers';
 import { Text } from '../../components/Text';
 import Slider from '@ptomasroos/react-native-multi-slider';
 import { FloatingActionButton } from '../../components/FloatingActionButton';
@@ -14,20 +12,9 @@ import { SelectRatioModal } from '../HomeScreen/SelectRatioModal';
 
 export const CropImageScreen: FC = () => {
   const styles = useStyles();
-  const { image, ratio } = useImageHandler();
-  const imageCropperRef: ImageCropperRef = useRef();
-  const [quality, setQuality] = useState([100]);
+  const { image, ratio, handleCrop, imageCropperRef, quality, setQuality } =
+    useImageHandler();
   const modal = useModal();
-
-  const handleCrop = async () => {
-    if (imageCropperRef.current && (await hasAndroidPermission())) {
-      const path = await imageCropperRef.current?.handleCrop({
-        quality: quality[0],
-      });
-
-      handleSaveImage(path);
-    }
-  };
 
   return (
     <View style={styles.container}>
