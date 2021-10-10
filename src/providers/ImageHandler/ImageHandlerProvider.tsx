@@ -4,7 +4,6 @@ import {
   launchCamera,
   launchImageLibrary,
 } from 'react-native-image-picker';
-
 import {
   ImageHandlerContext,
   ImageHandlerContextProps,
@@ -18,8 +17,12 @@ import {
 import { ImageCropperRef } from '../../components/ImageCropper/models/ImageCropperRef';
 import { getItem } from '../../helpers/localStorage';
 import { simplifyRatio } from '../../screens/HomeScreen/SelectRatioModal/helpers';
+import { useModal } from '../Modal';
+import { ErrorModal } from '../../components/ErrorModal';
+import { SuccessModal } from '../../components/SuccessModal';
 
 export const ImageHandlerProvider: FC = ({ children }) => {
+  const modal = useModal();
   const [image, setImage] = useState<Asset>();
   const [ratio, setRatio] = useState<Ratio>();
   const [quality, setQuality] = useState([100]);
@@ -62,11 +65,20 @@ export const ImageHandlerProvider: FC = ({ children }) => {
 
   const handleCrop = async () => {
     if (imageCropperRef.current && (await hasAndroidPermission())) {
-      const path = await imageCropperRef.current?.handleCrop({
-        quality: quality[0],
-      });
+      try {
+        const path = await imageCropperRef.current?.handleCrop({
+          quality: quality[0],
+        });
 
-      handleSaveImage(path);
+        handleSaveImage(path);
+        modal.handleOpen({
+          content: <SuccessModal title="All good :)" />,
+        });
+      } catch {
+        modal.handleOpen({
+          content: <ErrorModal title="An error has occurred >:c" />,
+        });
+      }
       const newRecentlyUsedRatios =
         ratio && (await handleUpdateRecentlyUsedRatios(ratio));
 

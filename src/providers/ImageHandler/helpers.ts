@@ -31,7 +31,10 @@ export const handleUpdateRecentlyUsedRatios = async (ratio: Ratio) => {
     newRecentlyUsedRatios = [
       ratio,
       ...recentlyUsedRatios
-        .filter((recentlyUsedRatio) => recentlyUsedRatio !== ratio)
+        .filter(
+          (recentlyUsedRatio) =>
+            JSON.stringify(recentlyUsedRatio) !== JSON.stringify(ratio),
+        )
         .slice(0, 3),
     ];
   } else {
