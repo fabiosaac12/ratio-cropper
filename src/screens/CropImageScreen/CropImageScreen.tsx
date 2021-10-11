@@ -4,11 +4,10 @@ import { Button } from '../../components/Button';
 import { ImageCropper } from '../../components/ImageCropper';
 import { useImageHandler } from '../../providers/ImageHandler';
 import { useStyles } from './CropImageScreenStyles';
-import { Text } from '../../components/Text';
-import Slider from '@ptomasroos/react-native-multi-slider';
 import { FloatingActionButton } from '../../components/FloatingActionButton';
 import { useModal } from '../../providers/Modal';
 import { SelectRatioModal } from '../HomeScreen/SelectRatioModal';
+import { InlineImagesGallery } from '../../components/InlineImagesGallery';
 
 export const CropImageScreen: FC = () => {
   const styles = useStyles();
@@ -30,6 +29,8 @@ export const CropImageScreen: FC = () => {
           />
         </ImageCropper>
       )}
+
+      <InlineImagesGallery />
 
       <Button style={styles.cropButton} title="Crop" onPress={handleCrop} />
     </View>

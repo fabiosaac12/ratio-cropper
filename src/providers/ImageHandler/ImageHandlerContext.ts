@@ -9,6 +9,7 @@ export interface ImageHandlerContextProps {
   image?: Asset;
   ratio?: Ratio;
   setRatio: React.Dispatch<React.SetStateAction<Ratio | undefined>>;
+  setImage: React.Dispatch<React.SetStateAction<Asset | undefined>>;
   imageCropperRef: ImageCropperRef;
   handleCrop: () => void;
   recentlyUsedRatios: Ratio[];

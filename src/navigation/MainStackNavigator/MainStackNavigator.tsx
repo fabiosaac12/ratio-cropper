@@ -1,5 +1,8 @@
 import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
+import {
+  NavigationContainer,
+  createNavigationContainerRef,
+} from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { CropImageScreen } from '../../screens/CropImageScreen';
 import { HomeScreen } from '../../screens/HomeScreen';
@@ -11,8 +14,10 @@ export type MainStackNavigatorParamas = {
 
 const Stack = createNativeStackNavigator<MainStackNavigatorParamas>();
 
+export const navigationContainerRef = createNavigationContainerRef();
+
 export const MainStackNavigator = () => (
-  <NavigationContainer>
+  <NavigationContainer ref={navigationContainerRef}>
     <Stack.Navigator>
       <Stack.Screen name="home" component={HomeScreen} />
       <Stack.Screen name="cropImage" component={CropImageScreen} />

@@ -20,6 +20,8 @@ import { simplifyRatio } from '../../screens/HomeScreen/SelectRatioModal/helpers
 import { useModal } from '../Modal';
 import { ErrorModal } from '../../components/ErrorModal';
 import { SuccessModal } from '../../components/SuccessModal';
+import { SelectRatioModal } from '../../screens/HomeScreen/SelectRatioModal';
+import { navigationContainerRef } from '../../navigation/MainStackNavigator';
 
 export const ImageHandlerProvider: FC = ({ children }) => {
   const modal = useModal();
@@ -28,10 +30,19 @@ export const ImageHandlerProvider: FC = ({ children }) => {
   const [recentlyUsedRatios, setRecentlyUsedRatios] = useState<Ratio[]>([]);
   const imageCropperRef: ImageCropperRef = useRef();
 
+  console.log({ image });
+
   useEffect(() => {
-    image?.height &&
-      image?.width &&
-      setRatio(simplifyRatio([image.height, image.width]));
+    if (
+      navigationContainerRef.getCurrentRoute()?.name !== 'cropImage' &&
+      image
+    ) {
+      image?.height &&
+        image?.width &&
+        setRatio(simplifyRatio([image.height, image.width]));
+
+      modal.handleOpen({ content: <SelectRatioModal /> });
+    }
   }, [image]);
 
   useEffect(() => {
@@ -88,6 +99,7 @@ export const ImageHandlerProvider: FC = ({ children }) => {
     handleTakePhoto,
     setRatio,
     image,
+    setImage,
     ratio,
     imageCropperRef,
     handleCrop,

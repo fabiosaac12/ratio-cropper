@@ -39,17 +39,23 @@ export const ImageCropper: FC<Props> = ({
     originalImageDimensions,
     imageDimensions,
     areaDimensions,
+    imageUri: uri,
   });
 
   state.current = {
     originalImageDimensions,
     imageDimensions,
     areaDimensions,
+    imageUri: uri,
   };
 
   const handleCrop: HandleCropFunction = async () => {
-    const { areaDimensions, imageDimensions, originalImageDimensions } =
-      state.current;
+    const {
+      areaDimensions,
+      imageDimensions,
+      originalImageDimensions,
+      imageUri,
+    } = state.current;
 
     if (imageDimensions && areaDimensions && originalImageDimensions) {
       const { positionX, positionY, scale } = position.current;
@@ -81,7 +87,7 @@ export const ImageCropper: FC<Props> = ({
         cropData.y = originalImageDimensions.height - cropData.height;
       }
 
-      const croppedImagePath = await cropImage({ ...cropData, path: uri });
+      const croppedImagePath = await cropImage({ ...cropData, path: imageUri });
 
       return croppedImagePath;
     } else {
