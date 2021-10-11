@@ -1,8 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigation } from '@react-navigation/core';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import React from 'react';
 import { Button } from '../../../components/Button';
-import { MainStackNavigatorParamas } from '../../../navigation/MainStackNavigator';
+import { navigationContainerRef } from '../../../navigation/MainStackNavigator';
 import { useImageHandler } from '../../../providers/ImageHandler';
 import { Ratio } from '../../../providers/ImageHandler/models/Ratio';
 import { useModal } from '../../../providers/Modal';
@@ -20,14 +18,12 @@ const screenRatio: Ratio = simplifyRatio([screen.height, screen.width]);
 export const SelectRatioModal = () => {
   const styles = useStyles();
   const modal = useModal();
-  const { setRatio, recentlyUsedRatios } = useImageHandler();
-  const navigation =
-    useNavigation<NativeStackNavigationProp<MainStackNavigatorParamas>>();
+  const { setRatio, recentlyUsedRatiosRef } = useImageHandler();
 
   const handleSetRatio = (ratio: Ratio) => {
     modal.handleHide();
     setRatio(ratio);
-    navigation.navigate('cropImage');
+    navigationContainerRef.navigate('cropImage');
   };
 
   return (
@@ -50,11 +46,11 @@ export const SelectRatioModal = () => {
         />
       </View>
 
-      {recentlyUsedRatios.length && (
+      {!!recentlyUsedRatiosRef.current.length && (
         <>
           <Text style={styles.title}>Recently Used Ratios</Text>
           <View style={styles.ratiosContainer}>
-            {recentlyUsedRatios.map((ratio) => (
+            {recentlyUsedRatiosRef.current.map((ratio) => (
               <Button
                 key={`recently-used-${ratio}`}
                 style={styles.ratio}

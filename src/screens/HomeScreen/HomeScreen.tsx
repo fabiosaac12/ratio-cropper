@@ -3,12 +3,12 @@ import React from 'react';
 import { View } from 'react-native';
 import { Button } from '../../components/Button';
 import { withLayout } from '../../hoc';
-import { MainStackNavigatorParamas } from '../../navigation/MainStackNavigator';
+import { MainStackNavigatorParams } from '../../navigation/MainStackNavigator';
 import { useImageHandler } from '../../providers/ImageHandler';
 import { useStyles } from './HomeScreenStyles';
 
 interface Props
-  extends NativeStackScreenProps<MainStackNavigatorParamas, 'home'> {}
+  extends NativeStackScreenProps<MainStackNavigatorParams, 'home'> {}
 
 export const HomeScreen = withLayout<Props>(() => {
   const styles = useStyles();

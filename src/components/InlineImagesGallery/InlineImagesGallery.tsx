@@ -46,7 +46,7 @@ export const InlineImagesGallery = () => {
   return (
     <FlatList
       keyExtractor={(item, index) => `${item.uri}-${index}-iig`}
-      data={images}
+      data={images.length ? images : [{}]}
       renderItem={({ item, index }) => (
         <>
           {index === 0 && (

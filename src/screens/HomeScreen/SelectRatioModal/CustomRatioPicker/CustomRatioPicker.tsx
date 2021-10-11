@@ -1,7 +1,6 @@
 import React, { FC, useState } from 'react';
 import { TextInput, View } from 'react-native';
 import { Button } from '../../../../components/Button';
-import { Text } from '../../../../components/Text';
 import { useImageHandler } from '../../../../providers/ImageHandler';
 import { Ratio } from '../../../../providers/ImageHandler/models/Ratio';
 import { useStyles } from './CustomRatioPickerStyles';

@@ -32,8 +32,8 @@ export const ImageCropper: FC<Props> = ({
   const [originalImageDimensions, setOriginalImage] = useState<Dimensions>();
   const [imageDimensions, setImageDimensions] = useState<Dimensions>();
   const [areaDimensions, setAreaDimensions] = useState<Dimensions>();
-  const position = useRef<Position>({ positionX: 0, positionY: 0, scale: 1 });
   const [minScale, setMinScale] = useState<number>();
+  const position = useRef<Position>({ positionX: 0, positionY: 0, scale: 1 });
 
   const state = useRef<State>({
     originalImageDimensions,

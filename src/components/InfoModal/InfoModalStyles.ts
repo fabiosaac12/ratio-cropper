@@ -5,7 +5,7 @@ export const useStyles = makeStyles((theme) =>
   StyleSheet.create({
     title: {
       textAlign: 'center',
-      color: theme.palette.success[500],
+      color: theme.palette.primary[800],
       marginBottom: 15,
     },
   }),

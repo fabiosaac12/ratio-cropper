@@ -1,4 +1,5 @@
 import React, { FC, useEffect, useRef, useState } from 'react';
+import { Linking } from 'react-native';
 import {
   Asset,
   launchCamera,
@@ -19,17 +20,19 @@ import { ImageCropperRef } from '../../components/ImageCropper/models/ImageCropp
 import { getItem } from '../../helpers/localStorage';
 import { simplifyRatio } from '../../screens/HomeScreen/SelectRatioModal/helpers';
 import { useModal } from '../Modal';
-import { ErrorModal } from '../../components/ErrorModal';
-import { SuccessModal } from '../../components/SuccessModal';
+import { InfoModal } from '../../components/InfoModal';
 import { SelectRatioModal } from '../../screens/HomeScreen/SelectRatioModal';
 import { navigationContainerRef } from '../../navigation/MainStackNavigator';
+import Snackbar from 'react-native-snackbar';
+import { useTheme } from '../Theme';
 
 export const ImageHandlerProvider: FC = ({ children }) => {
+  const { theme } = useTheme();
   const modal = useModal();
   const [image, setImage] = useState<Asset>();
   const [ratio, setRatio] = useState<Ratio>();
-  const [recentlyUsedRatios, setRecentlyUsedRatios] = useState<Ratio[]>([]);
   const imageCropperRef: ImageCropperRef = useRef();
+  const recentlyUsedRatiosRef = useRef<Ratio[]>([]);
 
   useEffect(() => {
     if (
@@ -48,7 +51,9 @@ export const ImageHandlerProvider: FC = ({ children }) => {
     (async () => {
       const recentlyUsedRatios = await getItem<Ratio[]>('recently_used_ratios');
 
-      setRecentlyUsedRatios(recentlyUsedRatios || []);
+      recentlyUsedRatiosRef.current = recentlyUsedRatios || [];
+
+      hasAndroidPermission();
     })();
   }, []);
 
@@ -75,26 +80,53 @@ export const ImageHandlerProvider: FC = ({ children }) => {
   const handleCrop = async (params?: { save?: boolean; share?: boolean }) => {
     const { save = true, share = false } = params || {};
 
-    if (imageCropperRef.current && (await hasAndroidPermission())) {
-      try {
-        const path = await imageCropperRef.current?.handleCrop();
+    if (imageCropperRef.current) {
+      if (await hasAndroidPermission()) {
+        try {
+          const path = await imageCropperRef.current?.handleCrop();
 
-        save && (await handleSaveImage(path));
-        share && (await handleShareImage(path));
+          save && (await handleSaveImage(path));
+          const shareResponse =
+            (share && (await handleShareImage(path))) || undefined;
 
-        !share &&
-          modal.handleOpen({
-            content: <SuccessModal title="All good :)" />,
+          ((share && shareResponse?.success) || save) &&
+            Snackbar.show({
+              text: 'All good :)',
+              duration: Snackbar.LENGTH_SHORT,
+              textColor: theme.palette.primary[500],
+              action: {
+                text: ':)',
+                onPress: Snackbar.dismiss,
+              },
+            });
+        } catch {
+          Snackbar.show({
+            text: 'An error has occurred >:c',
+            duration: Snackbar.LENGTH_SHORT,
+            textColor: theme.palette.danger[500],
+            action: {
+              text: 'Oh :(',
+              onPress: Snackbar.dismiss,
+            },
           });
-      } catch {
+        }
+        const newRecentlyUsedRatios =
+          ratio && (await handleUpdateRecentlyUsedRatios(ratio));
+
+        if (newRecentlyUsedRatios) {
+          recentlyUsedRatiosRef.current = newRecentlyUsedRatios;
+        }
+      } else {
         modal.handleOpen({
-          content: <ErrorModal title="An error has occurred >:c" />,
+          content: (
+            <InfoModal
+              title="I need your permission :c"
+              buttonText="Open settings"
+              buttonOnPress={() => Linking.openSettings()}
+            />
+          ),
         });
       }
-      const newRecentlyUsedRatios =
-        ratio && (await handleUpdateRecentlyUsedRatios(ratio));
-
-      newRecentlyUsedRatios && setRecentlyUsedRatios(newRecentlyUsedRatios);
     }
   };
 
@@ -107,7 +139,7 @@ export const ImageHandlerProvider: FC = ({ children }) => {
     ratio,
     imageCropperRef,
     handleCrop,
-    recentlyUsedRatios,
+    recentlyUsedRatiosRef,
   };
 
   return (
