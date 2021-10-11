@@ -8,6 +8,7 @@ import { FloatingActionButton } from '../../components/FloatingActionButton';
 import { useModal } from '../../providers/Modal';
 import { SelectRatioModal } from '../HomeScreen/SelectRatioModal';
 import { InlineImagesGallery } from '../../components/InlineImagesGallery';
+import { FloatingActionIconButton } from '../../components/FloatingActionIconButton';
 
 export const CropImageScreen: FC = () => {
   const styles = useStyles();
@@ -32,7 +33,18 @@ export const CropImageScreen: FC = () => {
 
       <InlineImagesGallery />
 
-      <Button style={styles.cropButton} title="Crop" onPress={handleCrop} />
+      <FloatingActionIconButton
+        iconName="share-social"
+        onPress={() => handleCrop({ share: true, save: false })}
+        position="bl"
+        variant="outlined"
+      />
+
+      <FloatingActionIconButton
+        iconName="crop"
+        onPress={handleCrop}
+        position="br"
+      />
     </View>
   );
 };

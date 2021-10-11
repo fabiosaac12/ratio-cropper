@@ -7,14 +7,15 @@ export const useStyles = makeStyles((theme) => {
   const size = Math.min(width, height) / 4;
 
   return StyleSheet.create({
-    container: {
-      flexDirection: 'row',
+    flatList: {
+      flexGrow: 0,
     },
     imageWrapper: {
       ...theme.shadows[1],
       width: size,
       height: size,
-      margin: 0.5,
+      marginVertical: 2,
+      marginHorizontal: 1,
     },
     image: {
       width: '100%',
@@ -27,7 +28,8 @@ export const useStyles = makeStyles((theme) => {
       height: size,
       justifyContent: 'center',
       alignItems: 'center',
-      margin: 0.5,
+      marginVertical: 2,
+      marginHorizontal: 1,
       borderColor: theme.palette.primary[500],
       borderRadius: 5,
       backgroundColor: theme.palette.background[200],

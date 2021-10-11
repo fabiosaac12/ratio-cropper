@@ -1,14 +1,14 @@
 import { StyleSheet } from 'react-native';
 import { makeStyles } from '../../providers/Theme';
 
-type Params = {
+type Props = {
   color: 'primary' | 'secondary' | 'danger' | 'success';
   variant: 'outlined' | 'filled';
   disabled?: boolean;
 };
 
 export const useStyles = makeStyles(
-  (theme, { variant, color, disabled }: Params) =>
+  (theme, { variant, color, disabled }: Props) =>
     StyleSheet.create({
       button: {
         padding: theme.spacing(1.3),

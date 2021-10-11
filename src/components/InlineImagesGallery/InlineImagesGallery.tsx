@@ -76,6 +76,7 @@ export const InlineImagesGallery = () => {
       onEndReached={fetchImages}
       onEndReachedThreshold={0.5}
       showsHorizontalScrollIndicator={false}
+      style={styles.flatList}
     />
   );
 };

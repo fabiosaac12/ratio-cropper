@@ -2,6 +2,7 @@ import { PermissionsAndroid } from 'react-native';
 import CameraRoll from '@react-native-community/cameraroll';
 import { getItem, setItem } from '../../helpers/localStorage';
 import { Ratio } from '../../providers/ImageHandler/models/Ratio';
+import Share from 'react-native-share';
 
 export const hasAndroidPermission = async () => {
   const permission = PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE;
@@ -21,6 +22,9 @@ export const handleSaveImage = async (path: string) =>
   await CameraRoll.save(path, {
     album: 'Ratio Cropper',
   });
+
+export const handleShareImage = async (path: string) =>
+  await Share.open({ url: `file://${path}`, failOnCancel: false });
 
 export const handleUpdateRecentlyUsedRatios = async (ratio: Ratio) => {
   const recentlyUsedRatios = await getItem<Ratio[]>('recently_used_ratios');

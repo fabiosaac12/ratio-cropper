@@ -11,7 +11,7 @@ export interface ImageHandlerContextProps {
   setRatio: React.Dispatch<React.SetStateAction<Ratio | undefined>>;
   setImage: React.Dispatch<React.SetStateAction<Asset | undefined>>;
   imageCropperRef: ImageCropperRef;
-  handleCrop: () => void;
+  handleCrop: (params?: { save?: boolean; share?: boolean }) => void;
   recentlyUsedRatios: Ratio[];
 }
 

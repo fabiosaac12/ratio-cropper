@@ -13,6 +13,7 @@ import {
   handleSaveImage,
   hasAndroidPermission,
   handleUpdateRecentlyUsedRatios,
+  handleShareImage,
 } from './helpers';
 import { ImageCropperRef } from '../../components/ImageCropper/models/ImageCropperRef';
 import { getItem } from '../../helpers/localStorage';
@@ -29,8 +30,6 @@ export const ImageHandlerProvider: FC = ({ children }) => {
   const [ratio, setRatio] = useState<Ratio>();
   const [recentlyUsedRatios, setRecentlyUsedRatios] = useState<Ratio[]>([]);
   const imageCropperRef: ImageCropperRef = useRef();
-
-  console.log({ image });
 
   useEffect(() => {
     if (
@@ -73,15 +72,20 @@ export const ImageHandlerProvider: FC = ({ children }) => {
     );
   };
 
-  const handleCrop = async () => {
+  const handleCrop = async (params?: { save?: boolean; share?: boolean }) => {
+    const { save = true, share = false } = params || {};
+
     if (imageCropperRef.current && (await hasAndroidPermission())) {
       try {
         const path = await imageCropperRef.current?.handleCrop();
 
-        handleSaveImage(path);
-        modal.handleOpen({
-          content: <SuccessModal title="All good :)" />,
-        });
+        save && (await handleSaveImage(path));
+        share && (await handleShareImage(path));
+
+        !share &&
+          modal.handleOpen({
+            content: <SuccessModal title="All good :)" />,
+          });
       } catch {
         modal.handleOpen({
           content: <ErrorModal title="An error has occurred >:c" />,
