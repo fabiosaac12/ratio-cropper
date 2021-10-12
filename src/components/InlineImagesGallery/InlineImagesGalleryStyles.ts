@@ -10,19 +10,6 @@ export const useStyles = makeStyles((theme) => {
     flatList: {
       flexGrow: 0,
     },
-    imageWrapper: {
-      ...theme.shadows[1],
-      width: size,
-      height: size,
-      marginVertical: 2,
-      marginHorizontal: 1,
-    },
-    image: {
-      width: '100%',
-      height: '100%',
-      borderRadius: 5,
-      resizeMode: 'cover',
-    },
     button: {
       width: size,
       height: size,

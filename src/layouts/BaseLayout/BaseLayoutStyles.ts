@@ -9,8 +9,6 @@ export const useStyles = makeStyles((theme) => {
     layout: {
       flex: 1,
       paddingBottom: 57,
-      paddingLeft: insets.left + theme.spacing(2),
-      paddingRight: insets.right + theme.spacing(2),
     },
   });
 });

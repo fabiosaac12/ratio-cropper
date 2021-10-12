@@ -34,6 +34,8 @@ export const useStyles = makeStyles(
         color:
           variant === 'filled'
             ? theme.palette.text.button
+            : disabled
+            ? theme.palette.greys[500]
             : theme.palette[color][500],
       },
     }),

@@ -2,6 +2,7 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React from 'react';
 import { View } from 'react-native';
 import { Button } from '../../components/Button';
+import { Gallery } from '../../components/Gallery';
 import { withLayout } from '../../hoc';
 import { MainStackNavigatorParams } from '../../navigation/MainStackNavigator';
 import { useImageHandler } from '../../providers/ImageHandler';
@@ -23,6 +24,7 @@ export const HomeScreen = withLayout<Props>(() => {
         title="Select an image from gallery"
       />
       <Button onPress={handleTakePhoto} title="Take a photo" />
+      <Gallery />
     </View>
   );
 });
