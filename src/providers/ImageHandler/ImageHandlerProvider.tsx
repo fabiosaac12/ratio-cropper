@@ -94,7 +94,7 @@ export const ImageHandlerProvider: FC = ({ children }) => {
               text: 'All good :)',
               duration: Snackbar.LENGTH_SHORT,
               textColor: theme.palette.primary[500],
-              backgroundColor: theme.palette.background[100],
+              backgroundColor: theme.palette.background[400],
               action: {
                 text: ':)',
                 onPress: Snackbar.dismiss,
@@ -106,7 +106,7 @@ export const ImageHandlerProvider: FC = ({ children }) => {
             text: 'An error has occurred >:c',
             duration: Snackbar.LENGTH_SHORT,
             textColor: theme.palette.danger[500],
-            backgroundColor: theme.palette.background[100],
+            backgroundColor: theme.palette.background[400],
             action: {
               text: 'Oh :(',
               onPress: Snackbar.dismiss,

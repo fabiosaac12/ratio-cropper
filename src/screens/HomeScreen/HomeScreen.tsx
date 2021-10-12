@@ -26,17 +26,20 @@ export const HomeScreen = withLayout<Props>(() => {
       stickySectionHeadersEnabled
       renderSectionHeader={(some) =>
         some.section.key === 'home-section-list-item-2' ? (
-          <FlatList
-            data={albums}
-            horizontal
-            renderItem={({ item }) => (
-              <Button
-                onPress={() => setSelectedAlbum(item)}
-                title={item}
-                disabled={selectedAlbum === item}
-              />
-            )}
-          />
+          <View style={styles.albumTabsContainer}>
+            <FlatList
+              showsHorizontalScrollIndicator={false}
+              data={albums}
+              horizontal
+              renderItem={({ item }) => (
+                <Button
+                  onPress={() => setSelectedAlbum(item)}
+                  title={item}
+                  disabled={selectedAlbum === item}
+                />
+              )}
+            />
+          </View>
         ) : null
       }
       sections={[

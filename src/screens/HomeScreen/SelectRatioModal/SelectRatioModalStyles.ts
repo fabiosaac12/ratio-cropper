@@ -15,7 +15,10 @@ export const useStyles = makeStyles((theme) =>
       fontWeight: '500',
       fontSize: 20,
       textTransform: 'uppercase',
-      color: theme.palette.primary[800],
+      color:
+        theme.name === 'dark'
+          ? theme.palette.primary[200]
+          : theme.palette.primary[800],
     },
     ratio: {
       paddingHorizontal: 14,

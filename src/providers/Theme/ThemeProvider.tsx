@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { StatusBar } from 'react-native';
 import { ThemeContext, ThemeContextProps } from './ThemeContext';
 import { themes } from './themes';
 
@@ -26,6 +27,10 @@ export const ThemeProvider: React.FC<Props> = ({
 
   return (
     <ThemeContext.Provider value={contextValue}>
+      <StatusBar
+        backgroundColor={themes[themeName].palette.background[100]}
+        barStyle={themeName === 'dark' ? 'light-content' : 'dark-content'}
+      />
       {children}
     </ThemeContext.Provider>
   );

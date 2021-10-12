@@ -6,6 +6,7 @@ import {
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { CropImageScreen } from '../../screens/CropImageScreen';
 import { HomeScreen } from '../../screens/HomeScreen';
+import { useTheme } from '../../providers/Theme';
 
 export type MainStackNavigatorParams = {
   home: undefined;
@@ -17,11 +18,46 @@ const Stack = createNativeStackNavigator<MainStackNavigatorParams>();
 export const navigationContainerRef =
   createNavigationContainerRef<MainStackNavigatorParams>();
 
-export const MainStackNavigator = () => (
-  <NavigationContainer ref={navigationContainerRef}>
-    <Stack.Navigator>
-      <Stack.Screen name="home" component={HomeScreen} />
-      <Stack.Screen name="cropImage" component={CropImageScreen} />
-    </Stack.Navigator>
-  </NavigationContainer>
-);
+export const MainStackNavigator = () => {
+  const { theme } = useTheme();
+
+  return (
+    <NavigationContainer ref={navigationContainerRef}>
+      <Stack.Navigator
+        screenOptions={{
+          contentStyle: {
+            backgroundColor: theme.palette.background[100],
+          },
+          headerShadowVisible: false,
+          headerStyle: { backgroundColor: theme.palette.background[100] },
+          headerTitleStyle: {
+            fontSize: 21,
+          },
+          headerTintColor: theme.palette.primary[500],
+          headerLargeTitle: true,
+          orientation: 'portrait_up',
+        }}
+      >
+        <Stack.Screen
+          name="home"
+          component={HomeScreen}
+          options={{
+            title: 'Ratio Cropper',
+            headerTitleStyle: {
+              fontSize: 30,
+              fontWeight: 'bold',
+            },
+            headerStyle: {
+              backgroundColor: theme.palette.background[200],
+            },
+          }}
+        />
+        <Stack.Screen
+          name="cropImage"
+          component={CropImageScreen}
+          options={{ title: 'Crop Image', headerLargeTitle: false }}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+};
