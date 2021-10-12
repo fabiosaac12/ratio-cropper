@@ -8,7 +8,6 @@ export const useStyles = makeStyles((theme) => {
   return StyleSheet.create({
     layout: {
       flex: 1,
-      paddingBottom: 57,
     },
   });
 });

@@ -10,7 +10,7 @@ import { useStyles } from './InlineImagesGalleryStyles';
 import { useImageHandler } from '../../providers/ImageHandler';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { Image } from './Image';
-import { useGalleryImages } from '../../helpers/useGalleryImages';
+import { useGalleryImages } from '../../hooks/useGalleryImages';
 
 export const InlineImagesGallery = () => {
   const styles = useStyles();

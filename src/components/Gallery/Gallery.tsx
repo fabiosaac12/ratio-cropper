@@ -1,35 +1,24 @@
-import CameraRoll from '@react-native-community/cameraroll';
-import React, { useEffect, useState } from 'react';
-import { FlatList, Image, ListRenderItem, View } from 'react-native';
+import React, { FC, useEffect, useState } from 'react';
+import { FlatList, Image, ListRenderItem } from 'react-native';
 import { Asset } from 'react-native-image-picker';
-import { useGalleryImages } from '../../helpers/useGalleryImages';
+import { useGalleryImages } from '../../hooks/useGalleryImages';
 import { useImageHandler } from '../../providers/ImageHandler';
-import { Button } from '../Button';
 import { useStyles } from './GalleryStyles';
 import { ImagesGroup } from './ImagesGroup';
 
-export const Gallery = () => {
+interface Props {
+  selectedAlbum?: string;
+}
+
+export const Gallery: FC<Props> = ({ selectedAlbum }) => {
   const styles = useStyles();
   const { setImage } = useImageHandler();
-  const [albums, setAlbums] = useState<string[]>([]);
-  const [selectedAlbum, setSelectedAlbum] = useState<string>();
   const [groupedImages, setGroupedImages] = useState<Asset[][]>();
 
   const { fetchImages, images } = useGalleryImages({
     album: selectedAlbum,
     first: 45,
   });
-
-  const fetchAlbums = async () => {
-    const albums = await CameraRoll.getAlbums({ assetType: 'Photos' });
-
-    setAlbums(albums.map((album) => album.title));
-    albums.length && setSelectedAlbum(albums[1].title);
-  };
-
-  useEffect(() => {
-    fetchAlbums();
-  }, []);
 
   useEffect(() => {
     if (images.length) {
@@ -63,22 +52,10 @@ export const Gallery = () => {
     />
   );
 
-  const renderAlbumTab: ListRenderItem<string> = ({ item }) => (
-    <Button
-      onPress={() => setSelectedAlbum(item)}
-      title={item}
-      variant="outlined"
-      disabled={selectedAlbum === item}
-    />
-  );
-
-  if (!albums.length) return null;
+  if (!groupedImages?.length) return null;
 
   return (
     <>
-      <View>
-        <FlatList data={albums} horizontal renderItem={renderAlbumTab} />
-      </View>
       <FlatList
         onEndReached={fetchImages}
         onEndReachedThreshold={1}
