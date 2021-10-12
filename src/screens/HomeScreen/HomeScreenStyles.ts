@@ -8,10 +8,10 @@ export const useStyles = makeStyles((theme) =>
       padding: theme.spacing(1),
       paddingTop: theme.spacing(5),
       marginBottom: theme.spacing(3),
-      backgroundColor: theme.palette.background[200],
+      backgroundColor: theme.palette.background[100],
       borderBottomLeftRadius: theme.radius(4),
       borderBottomRightRadius: theme.radius(4),
-      ...theme.shadows[3],
+      ...(theme.name === 'dark' ? theme.shadows[9] : theme.shadows[4]),
     },
     themeButton: {
       position: 'absolute',

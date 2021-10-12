@@ -47,9 +47,6 @@ export const MainStackNavigator = () => {
               fontSize: 30,
               fontWeight: 'bold',
             },
-            headerStyle: {
-              backgroundColor: theme.palette.background[200],
-            },
           }}
         />
         <Stack.Screen

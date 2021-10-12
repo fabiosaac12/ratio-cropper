@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StatusBar } from 'react-native';
+import { Appearance, AppState, StatusBar } from 'react-native';
 import { ThemeContext, ThemeContextProps } from './ThemeContext';
 import { themes } from './themes';
 
@@ -11,7 +11,16 @@ export const ThemeProvider: React.FC<Props> = ({
   children,
   defaultTheme = 'light',
 }) => {
-  const [themeName, setThemeName] = useState<keyof typeof themes>(defaultTheme);
+  const [themeName, setThemeName] = useState<keyof typeof themes>(
+    Appearance.getColorScheme() || defaultTheme,
+  );
+
+  useEffect(() => {
+    AppState.addEventListener('change', (state) => {
+      if (state === 'active')
+        setThemeName(Appearance.getColorScheme() || 'light');
+    });
+  }, []);
 
   const contextValue: ThemeContextProps = {
     themeName,
