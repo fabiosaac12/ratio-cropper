@@ -7,6 +7,8 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { CropImageScreen } from '../../screens/CropImageScreen';
 import { HomeScreen } from '../../screens/HomeScreen';
 import { useTheme } from '../../providers/Theme';
+import { Image } from 'react-native';
+import { images } from '../../assets';
 
 export type MainStackNavigatorParams = {
   home: undefined;
@@ -47,6 +49,12 @@ export const MainStackNavigator = () => {
               fontSize: 30,
               fontWeight: 'bold',
             },
+            headerLeft: () => (
+              <Image
+                source={images.logo}
+                style={{ width: 80, height: 80, marginRight: 15 }}
+              />
+            ),
           }}
         />
         <Stack.Screen

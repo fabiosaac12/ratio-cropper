@@ -1,5 +1,5 @@
 import { StyleSheet, useWindowDimensions } from 'react-native';
-import { makeStyles } from '../../../../providers/Theme';
+import { makeStyles } from '../../../providers/Theme';
 
 export const useStyles = makeStyles((theme) => {
   const windowDimensions = useWindowDimensions();

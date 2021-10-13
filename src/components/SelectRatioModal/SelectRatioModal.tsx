@@ -1,13 +1,13 @@
 import React from 'react';
-import { Button } from '../../../components/Button';
-import { navigationContainerRef } from '../../../navigation/MainStackNavigator';
-import { useImageHandler } from '../../../providers/ImageHandler';
-import { Ratio } from '../../../providers/ImageHandler/models/Ratio';
-import { useModal } from '../../../providers/Modal';
+import { Button } from '../Button';
+import { navigationContainerRef } from '../../navigation/MainStackNavigator';
+import { useImageHandler } from '../../providers/ImageHandler';
+import { Ratio } from '../../providers/ImageHandler/models/Ratio';
+import { useModal } from '../../providers/Modal';
 import { Dimensions, View } from 'react-native';
 import { useStyles } from './SelectRatioModalStyles';
 import { defaultRatios, simplifyRatio } from './helpers';
-import { Text } from '../../../components/Text';
+import { Text } from '../Text';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { CustomRatioPicker } from './CustomRatioPicker';
 

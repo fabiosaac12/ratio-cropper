@@ -1,8 +1,8 @@
 import React, { FC, useState } from 'react';
 import { TextInput, View } from 'react-native';
-import { Button } from '../../../../components/Button';
-import { useImageHandler } from '../../../../providers/ImageHandler';
-import { Ratio } from '../../../../providers/ImageHandler/models/Ratio';
+import { Button } from '../../Button';
+import { useImageHandler } from '../../../providers/ImageHandler';
+import { Ratio } from '../../../providers/ImageHandler/models/Ratio';
 import { useStyles } from './CustomRatioPickerStyles';
 
 interface Props {

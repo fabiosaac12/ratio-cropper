@@ -1,4 +1,4 @@
-import { Ratio } from '../../../providers/ImageHandler/models/Ratio';
+import { Ratio } from '../../providers/ImageHandler/models/Ratio';
 import { DefaultRatios } from './models/DefaultRatios';
 
 const getGcd = (a: number, b: number): number => (b ? getGcd(b, a % b) : a);

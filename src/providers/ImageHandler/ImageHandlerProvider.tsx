@@ -18,10 +18,10 @@ import {
 } from './helpers';
 import { ImageCropperRef } from '../../components/ImageCropper/models/ImageCropperRef';
 import { getItem } from '../../helpers/localStorage';
-import { simplifyRatio } from '../../screens/HomeScreen/SelectRatioModal/helpers';
+import { simplifyRatio } from '../../components/SelectRatioModal/helpers';
 import { useModal } from '../Modal';
 import { InfoModal } from '../../components/InfoModal';
-import { SelectRatioModal } from '../../screens/HomeScreen/SelectRatioModal';
+import { SelectRatioModal } from '../../components/SelectRatioModal';
 import { navigationContainerRef } from '../../navigation/MainStackNavigator';
 import Snackbar from 'react-native-snackbar';
 import { useTheme } from '../Theme';

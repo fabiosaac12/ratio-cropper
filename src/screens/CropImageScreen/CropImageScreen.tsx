@@ -6,7 +6,7 @@ import { useImageHandler } from '../../providers/ImageHandler';
 import { useStyles } from './CropImageScreenStyles';
 import { FloatingActionButton } from '../../components/FloatingActionButton';
 import { useModal } from '../../providers/Modal';
-import { SelectRatioModal } from '../HomeScreen/SelectRatioModal';
+import { SelectRatioModal } from '../../components/SelectRatioModal';
 import { InlineImagesGallery } from '../../components/InlineImagesGallery';
 import { FloatingActionIconButton } from '../../components/FloatingActionIconButton';
 
