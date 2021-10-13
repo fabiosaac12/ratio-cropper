@@ -6,6 +6,7 @@ type CropImageFunction = (
   y: number,
   width: number,
   height: number,
+  format: string,
 ) => Promise<string>;
 
 type CropImageHelper = (params: {
@@ -33,6 +34,7 @@ export const cropImage: CropImageHelper = async ({
     Math.abs(Math.round(y)),
     Math.abs(Math.round(width)),
     Math.abs(Math.round(height)),
+    path.split('.').reverse()[0],
   );
 
   return croppedImagePath;
