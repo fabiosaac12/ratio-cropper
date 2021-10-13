@@ -3,7 +3,6 @@ import { FlatList, Image, ListRenderItem } from 'react-native';
 import { Asset } from 'react-native-image-picker';
 import { useGalleryImages } from '../../hooks/useGalleryImages';
 import { useImageHandler } from '../../providers/ImageHandler';
-import { useStyles } from './GalleryStyles';
 import { ImagesGroup } from './ImagesGroup';
 
 interface Props {
@@ -11,7 +10,6 @@ interface Props {
 }
 
 export const Gallery: FC<Props> = ({ selectedAlbum }) => {
-  const styles = useStyles();
   const { setImage } = useImageHandler();
   const [groupedImages, setGroupedImages] = useState<Asset[][]>();
 
@@ -51,8 +49,6 @@ export const Gallery: FC<Props> = ({ selectedAlbum }) => {
       handleSetImage={handleSetImage}
     />
   );
-
-  if (!groupedImages?.length) return null;
 
   return (
     <>

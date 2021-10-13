@@ -12,7 +12,6 @@ import {
 import { Ratio } from './models/Ratio';
 import {
   handleSaveImage,
-  hasAndroidPermission,
   handleUpdateRecentlyUsedRatios,
   handleShareImage,
 } from './helpers';
@@ -25,9 +24,11 @@ import { SelectRatioModal } from '../../components/SelectRatioModal';
 import { navigationContainerRef } from '../../navigation/MainStackNavigator';
 import Snackbar from 'react-native-snackbar';
 import { useTheme } from '../Theme';
+import { usePermissions } from '../Permissions';
 
 export const ImageHandlerProvider: FC = ({ children }) => {
   const { theme } = useTheme();
+  const permissions = usePermissions();
   const modal = useModal();
   const [image, setImage] = useState<Asset>();
   const [ratio, setRatio] = useState<Ratio>();
@@ -52,8 +53,6 @@ export const ImageHandlerProvider: FC = ({ children }) => {
       const recentlyUsedRatios = await getItem<Ratio[]>('recently_used_ratios');
 
       recentlyUsedRatiosRef.current = recentlyUsedRatios || [];
-
-      hasAndroidPermission();
     })();
   }, []);
 
@@ -81,7 +80,7 @@ export const ImageHandlerProvider: FC = ({ children }) => {
     const { save = true, share = false } = params || {};
 
     if (imageCropperRef.current) {
-      if (await hasAndroidPermission()) {
+      if (permissions.storage || (await permissions.askForStorage())) {
         try {
           const path = await imageCropperRef.current?.handleCrop();
 
@@ -101,7 +100,7 @@ export const ImageHandlerProvider: FC = ({ children }) => {
                 textColor: theme.palette.primary[500],
               },
             });
-        } catch {
+        } catch (e) {
           Snackbar.show({
             text: 'An error has occurred >:c',
             duration: Snackbar.LENGTH_SHORT,

@@ -1,6 +1,7 @@
 import CameraRoll from '@react-native-community/cameraroll';
 import { useEffect, useRef, useState } from 'react';
 import { Asset } from 'react-native-image-picker';
+import { usePermissions } from '../providers/Permissions';
 
 type FetchInfo = {
   after?: string;
@@ -13,6 +14,7 @@ interface Props {
 }
 
 export const useGalleryImages = (props?: Props) => {
+  const permissions = usePermissions();
   const [images, setImages] = useState<Asset[]>([]);
   const fetchInfo = useRef<FetchInfo>({
     hasNextPage: true,
@@ -48,7 +50,7 @@ export const useGalleryImages = (props?: Props) => {
     };
 
     fetchImages();
-  }, [props?.album]);
+  }, [props?.album, permissions.storage]);
 
   return { images, fetchImages };
 };

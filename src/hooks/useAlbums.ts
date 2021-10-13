@@ -1,7 +1,9 @@
 import CameraRoll from '@react-native-community/cameraroll';
 import { useEffect, useState } from 'react';
+import { usePermissions } from '../providers/Permissions';
 
 export const useAlbums = () => {
+  const permissions = usePermissions();
   const [albums, setAlbums] = useState<string[]>([]);
   const [selectedAlbum, setSelectedAlbum] = useState<string>();
 
@@ -13,8 +15,8 @@ export const useAlbums = () => {
   };
 
   useEffect(() => {
-    fetchAlbums();
-  }, []);
+    permissions.storage && fetchAlbums();
+  }, [permissions.storage]);
 
   return {
     selectedAlbum,
