@@ -6,7 +6,7 @@ export const useStyles = makeStyles((theme) =>
     buttonsContainer: {
       alignItems: 'flex-start',
       padding: theme.spacing(1),
-      paddingTop: theme.spacing(5),
+      paddingTop: theme.spacing(3),
       marginBottom: theme.spacing(3),
       backgroundColor: theme.palette.background[100],
       borderBottomLeftRadius: theme.radius(4),
@@ -16,7 +16,7 @@ export const useStyles = makeStyles((theme) =>
     themeButton: {
       position: 'absolute',
       right: theme.spacing(5),
-      top: theme.spacing(5.25),
+      top: theme.spacing(3.25),
     },
     button: {
       paddingHorizontal: 20,
