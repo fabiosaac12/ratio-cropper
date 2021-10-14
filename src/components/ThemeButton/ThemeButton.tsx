@@ -26,7 +26,7 @@ export const ThemeButton: FC<Props> = ({ style }) => {
       >
         <View style={styles.fab}>
           <Icon
-            size={32}
+            size={30}
             name={themeName === 'dark' ? 'moon' : 'sunny'}
             style={styles.icon}
           />

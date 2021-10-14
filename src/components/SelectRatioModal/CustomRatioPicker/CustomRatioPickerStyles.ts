@@ -10,22 +10,22 @@ export const useStyles = makeStyles((theme) => {
       alignItems: 'center',
     },
     colon: {
-      height: 50,
+      height: 40,
       justifyContent: 'space-evenly',
       alignItems: 'center',
       marginTop: 3,
     },
     colonPoint: {
-      width: 7,
-      height: 7,
+      width: 5,
+      height: 5,
       borderRadius: 20,
       backgroundColor: theme.palette.primary[500],
     },
     input: {
-      width: 100,
+      width: 85,
       color: theme.palette.primary[500],
       textAlign: 'center',
-      fontSize: 40,
+      fontSize: 35,
     },
     applyButton: {
       marginLeft: 'auto',

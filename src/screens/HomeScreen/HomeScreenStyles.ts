@@ -13,10 +13,14 @@ export const useStyles = makeStyles((theme) =>
       borderBottomRightRadius: theme.radius(4),
       ...(theme.name === 'dark' ? theme.shadows[9] : theme.shadows[4]),
     },
+    horizontalContainer: {
+      flexDirection: 'row',
+      width: '100%',
+    },
     themeButton: {
-      position: 'absolute',
-      right: theme.spacing(5),
-      top: theme.spacing(3.25),
+      marginLeft: 'auto',
+      marginRight: theme.spacing(),
+      marginTop: theme.spacing(),
     },
     button: {
       paddingHorizontal: 20,

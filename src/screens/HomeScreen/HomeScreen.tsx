@@ -23,6 +23,7 @@ export const HomeScreen = withLayout<Props>(() => {
 
   return (
     <SectionList
+      overScrollMode="never"
       stickySectionHeadersEnabled
       renderSectionHeader={(some) =>
         some.section.key === 'home-section-list-item-2' ? (
@@ -48,14 +49,16 @@ export const HomeScreen = withLayout<Props>(() => {
           data: [''],
           renderItem: () => (
             <View style={styles.buttonsContainer}>
-              <ThemeButton style={styles.themeButton} />
-              <Button
-                style={styles.button}
-                onPress={handleTakePhotoFromGallery}
-              >
-                <Icon size={26} name={'image'} style={styles.buttonIcon} />
-                <Text variant="button">Open phone gallery</Text>
-              </Button>
+              <View style={styles.horizontalContainer}>
+                <Button
+                  style={styles.button}
+                  onPress={handleTakePhotoFromGallery}
+                >
+                  <Icon size={26} name={'image'} style={styles.buttonIcon} />
+                  <Text variant="button">Open phone gallery</Text>
+                </Button>
+                <ThemeButton style={styles.themeButton} />
+              </View>
               <Button style={styles.button} onPress={handleTakePhoto}>
                 <Icon size={26} name={'camera'} style={styles.buttonIcon} />
                 <Text variant="button">Take a photo</Text>

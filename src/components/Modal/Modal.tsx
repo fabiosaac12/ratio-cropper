@@ -16,7 +16,7 @@ export const Modal: React.FC = () => {
     >
       <TouchableOpacity
         onPress={handleHide}
-        activeOpacity={0.9}
+        activeOpacity={1}
         style={styles.backdrop}
       >
         <TouchableOpacity activeOpacity={1} style={styles.container}>
