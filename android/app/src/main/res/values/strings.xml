@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">RatioCropper</string>
+    <string name="app_name">Ratio Cropper</string>
+    <string name="creator">fabiosaac</string>
 </resources>
