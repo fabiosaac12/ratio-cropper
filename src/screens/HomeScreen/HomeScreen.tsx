@@ -1,5 +1,5 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import React from 'react';
+import React, { useRef } from 'react';
 import { FlatList, SectionList, View } from 'react-native';
 import { Button } from '../../components/Button';
 import { Gallery } from '../../components/Gallery';
@@ -18,11 +18,13 @@ interface Props
 export const HomeScreen = withLayout<Props>(() => {
   const styles = useStyles();
   const { albums, selectedAlbum, setSelectedAlbum } = useAlbums();
+  const sectionListRef = useRef<SectionList<any, any> | null>();
 
   const { handleTakePhotoFromGallery, handleTakePhoto } = useImageHandler();
 
   return (
     <SectionList
+      ref={(ref) => (sectionListRef.current = ref)}
       overScrollMode="never"
       stickySectionHeadersEnabled
       renderSectionHeader={(some) =>
@@ -34,7 +36,14 @@ export const HomeScreen = withLayout<Props>(() => {
               horizontal
               renderItem={({ item }) => (
                 <Button
-                  onPress={() => setSelectedAlbum(item)}
+                  onPress={() => {
+                    setSelectedAlbum(item);
+                    sectionListRef.current?.scrollToLocation({
+                      animated: true,
+                      sectionIndex: 0,
+                      itemIndex: 0,
+                    });
+                  }}
                   title={item}
                   disabled={selectedAlbum === item}
                 />
