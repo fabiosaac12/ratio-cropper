@@ -1,4 +1,4 @@
-package com.ratiocropper;
+package com.fabiosaac.ratiocropper;
 
 import android.os.Bundle;
 import com.facebook.react.ReactActivity;
