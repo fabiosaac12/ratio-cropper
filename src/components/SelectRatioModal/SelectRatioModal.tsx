@@ -29,7 +29,7 @@ export const SelectRatioModal = () => {
 
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
-      <TouchableOpacity activeOpacity={1}>
+      <TouchableOpacity activeOpacity={1} style={styles.container}>
         <CustomRatioPicker handleSetRatio={handleSetRatio} />
 
         <Text style={styles.title}>Your Phone Screen Ratio</Text>

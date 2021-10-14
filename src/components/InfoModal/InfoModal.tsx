@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import { View } from 'react-native';
 import { useModal } from '../../providers/Modal';
 import { Button } from '../Button';
 import { Text } from '../Text';
@@ -19,7 +20,7 @@ export const InfoModal: FC<Props> = ({
   const modal = useModal();
 
   return (
-    <>
+    <View style={styles.container}>
       <Text variant="button" style={styles.title}>
         {title}
       </Text>
@@ -32,6 +33,6 @@ export const InfoModal: FC<Props> = ({
           buttonOnPress();
         }}
       />
-    </>
+    </View>
   );
 };

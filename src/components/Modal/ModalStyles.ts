@@ -16,7 +16,6 @@ export const useStyles = makeStyles((theme) =>
       borderBottomRightRadius: 0,
       width: '100%',
       maxHeight: '90%',
-      padding: theme.spacing(3),
       ...theme.shadows[2],
     },
   }),

@@ -3,6 +3,9 @@ import { makeStyles } from '../../providers/Theme';
 
 export const useStyles = makeStyles((theme) =>
   StyleSheet.create({
+    container: {
+      padding: theme.spacing(3),
+    },
     ratiosContainer: {
       flexDirection: 'row',
       justifyContent: 'flex-start',
