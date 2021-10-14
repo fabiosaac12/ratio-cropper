@@ -13,6 +13,7 @@ import { ImageCropperRef } from './models/ImageCropperRef';
 import { State } from './models/State';
 import { cropImage } from '../../helpers';
 import { HandleCropFunction } from './models/HandleCropFunction';
+import { CenterOn } from './models/CenterOn';
 
 interface Props {
   uri: string;
@@ -33,6 +34,7 @@ export const ImageCropper: FC<Props> = ({
   const [imageDimensions, setImageDimensions] = useState<Dimensions>();
   const [areaDimensions, setAreaDimensions] = useState<Dimensions>();
   const [minScale, setMinScale] = useState<number>();
+  const [centerOn, setCenterOn] = useState<CenterOn>();
   const position = useRef<Position>({ positionX: 0, positionY: 0, scale: 1 });
 
   const state = useRef<State>({
@@ -108,9 +110,10 @@ export const ImageCropper: FC<Props> = ({
         areaDimensions.width / imageDimensions.width,
       );
 
-      setMinScale(minScale);
-
       position.current.scale = minScale;
+
+      setMinScale(minScale);
+      setCenterOn({ duration: 0, scale: minScale, x: 0, y: 0 });
     }
   }, [imageDimensions, areaDimensions]);
 
@@ -183,12 +186,7 @@ export const ImageCropper: FC<Props> = ({
           onMove={(_position) => (position.current = _position)}
           minScale={minScale}
           enableCenterFocus={false}
-          centerOn={{
-            scale: minScale,
-            x: position.current.positionX,
-            y: position.current.positionY,
-            duration: 0,
-          }}
+          centerOn={centerOn}
           doubleClickInterval={0}
           maxOverflow={0}
           swipeDownThreshold={0}
