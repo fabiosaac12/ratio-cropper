@@ -1,6 +1,5 @@
-import React, { FC } from 'react';
+import React from 'react';
 import { View } from 'react-native';
-import { Button } from '../../components/Button';
 import { ImageCropper } from '../../components/ImageCropper';
 import { useImageHandler } from '../../providers/ImageHandler';
 import { useStyles } from './CropImageScreenStyles';
@@ -9,8 +8,9 @@ import { useModal } from '../../providers/Modal';
 import { SelectRatioModal } from '../../components/SelectRatioModal';
 import { InlineImagesGallery } from '../../components/InlineImagesGallery';
 import { FloatingActionIconButton } from '../../components/FloatingActionIconButton';
+import { withLayout } from '../../hoc';
 
-export const CropImageScreen: FC = () => {
+export const CropImageScreen = withLayout(() => {
   const styles = useStyles();
   const { image, ratio, handleCrop, imageCropperRef } = useImageHandler();
   const modal = useModal();
@@ -47,4 +47,4 @@ export const CropImageScreen: FC = () => {
       />
     </View>
   );
-};
+});

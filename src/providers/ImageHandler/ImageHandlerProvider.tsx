@@ -25,11 +25,13 @@ import { navigationContainerRef } from '../../navigation/MainStackNavigator';
 import Snackbar from 'react-native-snackbar';
 import { useTheme } from '../Theme';
 import { usePermissions } from '../Permissions';
+import { useLoader } from '../Loader';
 
 export const ImageHandlerProvider: FC = ({ children }) => {
   const { theme } = useTheme();
   const permissions = usePermissions();
   const modal = useModal();
+  const loader = useLoader();
   const [image, setImage] = useState<Asset>();
   const [ratio, setRatio] = useState<Ratio>();
   const imageCropperRef: ImageCropperRef = useRef();
@@ -80,6 +82,8 @@ export const ImageHandlerProvider: FC = ({ children }) => {
     const { save = true, share = false } = params || {};
 
     if (imageCropperRef.current) {
+      loader.handleShow();
+
       if (permissions.storage || (await permissions.askForStorage())) {
         try {
           const path = await imageCropperRef.current?.handleCrop();
@@ -93,7 +97,7 @@ export const ImageHandlerProvider: FC = ({ children }) => {
               text: 'All good :)',
               duration: Snackbar.LENGTH_SHORT,
               textColor: theme.palette.primary[500],
-              backgroundColor: theme.palette.background[400],
+              backgroundColor: theme.palette.background[300],
               action: {
                 text: ':)',
                 onPress: Snackbar.dismiss,
@@ -105,7 +109,7 @@ export const ImageHandlerProvider: FC = ({ children }) => {
             text: 'An error has occurred >:c',
             duration: Snackbar.LENGTH_SHORT,
             textColor: theme.palette.danger[500],
-            backgroundColor: theme.palette.background[400],
+            backgroundColor: theme.palette.background[300],
             action: {
               text: 'Oh :(',
               onPress: Snackbar.dismiss,
@@ -130,6 +134,8 @@ export const ImageHandlerProvider: FC = ({ children }) => {
           ),
         });
       }
+
+      loader.handleHide();
     }
   };
 
