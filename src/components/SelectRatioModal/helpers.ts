@@ -1,13 +1,4 @@
-import { Ratio } from '../../providers/ImageHandler/models/Ratio';
 import { DefaultRatios } from './models/DefaultRatios';
-
-const getGcd = (a: number, b: number): number => (b ? getGcd(b, a % b) : a);
-
-export const simplifyRatio = (ratio: Ratio): Ratio => {
-  const gcd = getGcd(ratio[0], ratio[1]);
-
-  return [ratio[0] / gcd, ratio[1] / gcd];
-};
 
 export const defaultRatios: DefaultRatios = [
   {
@@ -31,7 +22,7 @@ export const defaultRatios: DefaultRatios = [
     text: 'Post',
   },
   {
-    ratio: [1, 1.91],
+    ratio: [11, 21],
     icon: 'logo-facebook',
     text: 'Landscape',
   },
@@ -46,7 +37,7 @@ export const defaultRatios: DefaultRatios = [
     text: 'Story',
   },
   {
-    ratio: [1.55, 1],
+    ratio: [76, 49],
     icon: 'logo-instagram',
     text: 'IGTV',
   },

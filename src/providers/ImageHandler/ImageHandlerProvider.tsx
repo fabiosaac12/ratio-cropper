@@ -17,7 +17,6 @@ import {
 } from './helpers';
 import { ImageCropperRef } from '../../components/ImageCropper/models/ImageCropperRef';
 import { getItem } from '../../helpers/localStorage';
-import { simplifyRatio } from '../../components/SelectRatioModal/helpers';
 import { useModal } from '../Modal';
 import { InfoModal } from '../../components/InfoModal';
 import { SelectRatioModal } from '../../components/SelectRatioModal';
@@ -26,6 +25,7 @@ import Snackbar from 'react-native-snackbar';
 import { useTheme } from '../Theme';
 import { usePermissions } from '../Permissions';
 import { useLoader } from '../Loader';
+import { simplifyRatio } from '../../helpers/simplifyRatio';
 
 export const ImageHandlerProvider: FC = ({ children }) => {
   const { theme } = useTheme();

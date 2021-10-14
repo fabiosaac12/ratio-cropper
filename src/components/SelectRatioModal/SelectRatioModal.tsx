@@ -6,10 +6,11 @@ import { Ratio } from '../../providers/ImageHandler/models/Ratio';
 import { useModal } from '../../providers/Modal';
 import { Dimensions, ScrollView, TouchableOpacity, View } from 'react-native';
 import { useStyles } from './SelectRatioModalStyles';
-import { defaultRatios, simplifyRatio } from './helpers';
+import { defaultRatios } from './helpers';
 import { Text } from '../Text';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { CustomRatioPicker } from './CustomRatioPicker';
+import { simplifyRatio } from '../../helpers/simplifyRatio';
 
 const screen = Dimensions.get('screen');
 
