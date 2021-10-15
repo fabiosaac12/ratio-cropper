@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useRef, useState } from 'react';
+import React, { FC, LegacyRef, useEffect, useRef, useState } from 'react';
 import {
   Image,
   ImageBackground,
@@ -11,9 +11,10 @@ import { Dimensions } from './models/Dimensions';
 import { Position } from './models/Position';
 import { ImageCropperRef } from './models/ImageCropperRef';
 import { State } from './models/State';
-import { cropImage } from '../../helpers';
+import { cropImage } from '../../helpers/cropImage';
 import { HandleCropFunction } from './models/HandleCropFunction';
 import { CenterOn } from './models/CenterOn';
+import ImageViewer from 'react-native-image-pan-zoom/built/image-zoom/image-zoom.component';
 
 interface Props {
   uri: string;
@@ -29,6 +30,7 @@ export const ImageCropper: FC<Props> = ({
 }) => {
   const windowDimensions = useWindowDimensions();
   const styles = useStyles();
+  const imageZoomRef: LegacyRef<ImageViewer> = useRef({} as ImageViewer);
 
   const [originalImageDimensions, setOriginalImage] = useState<Dimensions>();
   const [imageDimensions, setImageDimensions] = useState<Dimensions>();
@@ -179,6 +181,7 @@ export const ImageCropper: FC<Props> = ({
       </View>
       {imageDimensions && areaDimensions && minScale && (
         <ImageZoom
+          ref={imageZoomRef}
           cropWidth={areaDimensions.width}
           cropHeight={areaDimensions.height}
           imageWidth={imageDimensions.width}
@@ -187,7 +190,10 @@ export const ImageCropper: FC<Props> = ({
           minScale={minScale}
           enableCenterFocus={false}
           centerOn={centerOn}
-          doubleClickInterval={0}
+          onDoubleClick={() =>
+            centerOn && imageZoomRef.current?.centerOn(centerOn)
+          }
+          enableDoubleClickZoom={false}
           maxOverflow={0}
           swipeDownThreshold={0}
         >
