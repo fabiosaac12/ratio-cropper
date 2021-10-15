@@ -46,13 +46,13 @@ export const MainStackNavigator = () => {
           options={{
             title: 'Ratio Cropper',
             headerTitleStyle: {
-              fontSize: 30,
+              fontSize: 28,
               fontWeight: 'bold',
             },
             headerLeft: () => (
               <Image
                 source={images.logo}
-                style={{ width: 80, height: 80, marginRight: 15 }}
+                style={{ width: 75, height: 75, marginRight: 12 }}
               />
             ),
           }}

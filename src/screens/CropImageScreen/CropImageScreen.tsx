@@ -38,12 +38,15 @@ export const CropImageScreen = withLayout(() => {
         onPress={() => handleCrop({ share: true, save: false })}
         position="bl"
         variant="outlined"
+        color="secondary"
+        disabled={ratio?.includes(0)}
       />
 
       <FloatingActionIconButton
         iconName="crop"
         onPress={handleCrop}
         position="br"
+        disabled={ratio?.includes(0)}
       />
     </View>
   );

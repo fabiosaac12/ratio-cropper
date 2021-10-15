@@ -9,6 +9,7 @@ interface Props {
   color?: 'primary' | 'secondary' | 'danger' | 'success';
   variant?: 'outlined' | 'filled';
   onPress: () => void;
+  disabled?: boolean;
 }
 
 export const FloatingActionIconButton = (props: Props) => {
@@ -18,13 +19,15 @@ export const FloatingActionIconButton = (props: Props) => {
     onPress,
     color = 'primary',
     variant = 'filled',
+    disabled = false,
   } = props;
 
-  const styles = useStyles({ variant, color, position });
+  const styles = useStyles({ variant, color, position, disabled });
 
   return (
     <View style={styles.container}>
       <TouchableNativeFeedback
+        disabled={disabled}
         onPress={onPress}
         background={TouchableNativeFeedback.Ripple('#00000020', false, 30)}
       >

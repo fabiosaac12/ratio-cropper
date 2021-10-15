@@ -5,10 +5,11 @@ interface Props {
   position: 'br' | 'bl' | 'tl' | 'tr';
   color: 'primary' | 'secondary' | 'danger' | 'success';
   variant: 'outlined' | 'filled';
+  disabled: boolean;
 }
 
 export const useStyles = makeStyles(
-  (theme, { position, color, variant }: Props) =>
+  (theme, { position, color, variant, disabled }: Props) =>
     StyleSheet.create({
       container: {
         position: 'absolute',
@@ -24,10 +25,14 @@ export const useStyles = makeStyles(
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor:
-          variant === 'filled'
-            ? theme.palette[color][500]
-            : theme.palette.background[100],
-        borderColor: theme.palette[color][500],
+          variant === 'outlined'
+            ? theme.palette.background[100]
+            : disabled
+            ? theme.palette.greys[500]
+            : theme.palette[color][500],
+        borderColor: disabled
+          ? theme.palette.greys[500]
+          : theme.palette[color][500],
         borderWidth: 2,
         ...theme.shadows[4],
       },
@@ -35,6 +40,8 @@ export const useStyles = makeStyles(
         color:
           variant === 'filled'
             ? theme.palette.text.button
+            : disabled
+            ? theme.palette.greys[500]
             : theme.palette[color][500],
       },
     }),

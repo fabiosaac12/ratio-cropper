@@ -4,9 +4,9 @@ import { makeStyles } from '../../providers/Theme';
 export const useStyles = makeStyles((theme) =>
   StyleSheet.create({
     fab: {
-      width: 55,
-      height: 55,
-      borderRadius: 25,
+      width: 49,
+      height: 49,
+      borderRadius: 22.6,
       alignItems: 'center',
       justifyContent: 'center',
       backgroundColor: theme.palette.background[100],

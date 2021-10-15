@@ -4,6 +4,7 @@ import { Button } from '../../Button';
 import { useImageHandler } from '../../../providers/ImageHandler';
 import { Ratio } from '../../../providers/ImageHandler/models/Ratio';
 import { useStyles } from './CustomRatioPickerStyles';
+import { simplifyRatio } from '../../../helpers/simplifyRatio';
 
 interface Props {
   handleSetRatio: (ratio: Ratio) => void;
@@ -46,7 +47,7 @@ export const CustomRatioPicker: FC<Props> = ({ handleSetRatio }) => {
 
       <Button
         style={styles.applyButton}
-        onPress={() => handleSetRatio(values)}
+        onPress={() => handleSetRatio(simplifyRatio(values))}
         disabled={!verifyValues()}
         color="primary"
         title={`${values[0]} : ${values[1]}`}

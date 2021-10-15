@@ -23,7 +23,7 @@ export const useStyles = makeStyles((theme) =>
       marginTop: theme.spacing(),
     },
     button: {
-      paddingHorizontal: 20,
+      paddingHorizontal: 12,
     },
     buttonIcon: {
       marginRight: 8,

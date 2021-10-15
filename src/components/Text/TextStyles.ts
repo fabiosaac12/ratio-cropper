@@ -5,31 +5,31 @@ export const useStyles = makeStyles((theme) =>
   StyleSheet.create({
     title: {
       color: theme.palette.text.primary,
-      fontSize: 22,
+      fontSize: 21,
     },
     title2: {
       color: theme.palette.text.secondary,
-      fontSize: 20,
+      fontSize: 19,
     },
     subtitle: {
       color: theme.palette.text.primary,
-      fontSize: 18,
+      fontSize: 17,
     },
     subtitle2: {
       color: theme.palette.text.secondary,
-      fontSize: 17,
+      fontSize: 16,
     },
     body: {
       color: theme.palette.text.primary,
-      fontSize: 15,
+      fontSize: 14,
     },
     body2: {
       color: theme.palette.text.secondary,
-      fontSize: 14,
+      fontSize: 13,
     },
     button: {
       color: theme.palette.text.button,
-      fontSize: 16,
+      fontSize: 15,
       textTransform: 'uppercase',
       fontWeight: '500',
     },

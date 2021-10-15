@@ -17,14 +17,13 @@ export const useStyles = makeStyles((theme) => {
       alignItems: 'center',
       marginVertical: 2,
       marginHorizontal: 1,
-      borderColor: theme.palette.primary[500],
       borderRadius: 5,
       backgroundColor: theme.palette.background[200],
       ...theme.shadows[1],
     },
     buttonIcon: {
       fontSize: size / 2,
-      color: theme.palette.primary[500],
+      color: theme.palette.secondary[500],
     },
   });
 });

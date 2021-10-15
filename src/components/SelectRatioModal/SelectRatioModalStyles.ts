@@ -4,7 +4,10 @@ import { makeStyles } from '../../providers/Theme';
 export const useStyles = makeStyles((theme) =>
   StyleSheet.create({
     container: {
-      padding: theme.spacing(3),
+      paddingVertical: theme.spacing(3),
+    },
+    section: {
+      paddingHorizontal: theme.spacing(3),
     },
     ratiosContainer: {
       flexDirection: 'row',
@@ -21,7 +24,13 @@ export const useStyles = makeStyles((theme) =>
       color:
         theme.name === 'dark'
           ? theme.palette.primary[200]
-          : theme.palette.primary[800],
+          : theme.palette.primary[700],
+    },
+    secondaryTextColor: {
+      color:
+        theme.name === 'dark'
+          ? theme.palette.secondary[200]
+          : theme.palette.secondary[700],
     },
     ratio: {
       paddingHorizontal: 14,

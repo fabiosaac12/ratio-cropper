@@ -4,7 +4,13 @@ import { navigationContainerRef } from '../../navigation/MainStackNavigator';
 import { useImageHandler } from '../../providers/ImageHandler';
 import { Ratio } from '../../providers/ImageHandler/models/Ratio';
 import { useModal } from '../../providers/Modal';
-import { Dimensions, ScrollView, TouchableOpacity, View } from 'react-native';
+import {
+  Dimensions,
+  FlatList,
+  ScrollView,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import { useStyles } from './SelectRatioModalStyles';
 import { defaultRatios } from './helpers';
 import { Text } from '../Text';
@@ -30,26 +36,30 @@ export const SelectRatioModal = () => {
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
       <TouchableOpacity activeOpacity={1} style={styles.container}>
-        <CustomRatioPicker handleSetRatio={handleSetRatio} />
+        <View style={styles.section}>
+          <CustomRatioPicker handleSetRatio={handleSetRatio} />
+        </View>
 
-        <Text style={styles.title}>Your Phone Screen Ratio</Text>
-        <View style={styles.ratiosContainer}>
-          <Button
-            style={styles.ratio}
-            onPress={() => handleSetRatio(screenRatio)}
-            title={`${screenRatio[0]} : ${screenRatio[1]}`}
-            variant="outlined"
-          />
-          <Button
-            style={styles.ratio}
-            onPress={() => handleSetRatio([screenRatio[1], screenRatio[0]])}
-            title={`${screenRatio[1]} : ${screenRatio[0]}`}
-            variant="outlined"
-          />
+        <View style={styles.section}>
+          <Text style={styles.title}>Your Phone Screen Ratio</Text>
+          <View style={styles.ratiosContainer}>
+            <Button
+              style={styles.ratio}
+              onPress={() => handleSetRatio(screenRatio)}
+              title={`${screenRatio[0]} : ${screenRatio[1]}`}
+              variant="outlined"
+            />
+            <Button
+              style={styles.ratio}
+              onPress={() => handleSetRatio([screenRatio[1], screenRatio[0]])}
+              title={`${screenRatio[1]} : ${screenRatio[0]}`}
+              variant="outlined"
+            />
+          </View>
         </View>
 
         {!!recentlyUsedRatiosRef.current.length && (
-          <>
+          <View style={styles.section}>
             <Text style={styles.title}>Recently Used Ratios</Text>
             <View style={styles.ratiosContainer}>
               {recentlyUsedRatiosRef.current.map((ratio) => (
@@ -62,20 +72,34 @@ export const SelectRatioModal = () => {
                 />
               ))}
             </View>
-          </>
+          </View>
         )}
 
-        <Text style={styles.title}>Default Ratios</Text>
-        <View style={styles.ratiosContainer}>
-          {defaultRatios.map(({ ratio, icon, text }) => (
-            <Button
-              key={`${icon}-${text}`}
-              style={styles.ratio}
-              onPress={() => handleSetRatio(ratio)}
-            >
-              <Icon size={20} name={icon} style={styles.ratioIcon} />
-              <Text variant="button">{text}</Text>
-            </Button>
+        <Text style={[styles.title, styles.secondaryTextColor, styles.section]}>
+          Default Ratios
+        </Text>
+        <View>
+          {defaultRatios.map((defaultRatios) => (
+            <FlatList
+              contentContainerStyle={styles.section}
+              showsHorizontalScrollIndicator={false}
+              data={defaultRatios}
+              horizontal
+              keyExtractor={(item, index) =>
+                `${item.icon} ${item.text} ${index}`
+              }
+              renderItem={({ item: { icon, ratio, text } }) => (
+                <Button
+                  key={`${icon}-${text}`}
+                  style={styles.ratio}
+                  onPress={() => handleSetRatio(ratio)}
+                  color="secondary"
+                >
+                  <Icon size={20} name={icon} style={styles.ratioIcon} />
+                  <Text variant="button">{text}</Text>
+                </Button>
+              )}
+            />
           ))}
         </View>
       </TouchableOpacity>

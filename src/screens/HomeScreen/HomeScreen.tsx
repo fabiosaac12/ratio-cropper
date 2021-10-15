@@ -45,7 +45,8 @@ export const HomeScreen = withLayout<Props>(() => {
                     });
                   }}
                   title={item}
-                  disabled={selectedAlbum === item}
+                  color="secondary"
+                  variant={selectedAlbum === item ? 'filled' : 'outlined'}
                 />
               )}
             />

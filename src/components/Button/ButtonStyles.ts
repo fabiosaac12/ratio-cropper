@@ -11,7 +11,7 @@ export const useStyles = makeStyles(
   (theme, { variant, color, disabled }: Props) =>
     StyleSheet.create({
       button: {
-        padding: theme.spacing(1.3),
+        padding: theme.spacing(1),
         borderRadius: theme.radius(5),
         display: 'flex',
         flexDirection: 'row',

@@ -4,4 +4,4 @@ export type DefaultRatios = {
   ratio: Ratio;
   icon: string;
   text: string;
-}[];
+}[][];
