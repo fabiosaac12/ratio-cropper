@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Asset } from 'react-native-image-picker';
 import { useLoader } from '../providers/Loader';
 import { usePermissions } from '../providers/Permissions';
+import { useMounted } from './useMounted';
 
 type FetchInfo = {
   after?: string;
@@ -15,6 +16,7 @@ interface Props {
 }
 
 export const useGalleryImages = (props?: Props) => {
+  const mounted = useMounted();
   const permissions = usePermissions();
   const loader = useLoader();
   const [images, setImages] = useState<Asset[]>([]);
@@ -34,24 +36,28 @@ export const useGalleryImages = (props?: Props) => {
           groupName: props?.album,
         });
 
-        fetchInfo.current = {
-          after: pageInfo.end_cursor,
-          hasNextPage: pageInfo.has_next_page,
-        };
+        if (mounted.current) {
+          fetchInfo.current = {
+            after: pageInfo.end_cursor,
+            hasNextPage: pageInfo.has_next_page,
+          };
 
-        setImages((images) => [
-          ...images,
-          ...edges.map((edge) => ({ uri: edge.node.image.uri })),
-        ]);
+          setImages((images) => [
+            ...images,
+            ...edges.map((edge) => ({ uri: edge.node.image.uri })),
+          ]);
+        }
       }
     } catch {}
   };
 
   useEffect(() => {
-    setImages([]);
     fetchInfo.current = {
       hasNextPage: true,
     };
+
+    setImages([]);
+
     (async () => {
       loader.handleShow();
       await fetchImages();
