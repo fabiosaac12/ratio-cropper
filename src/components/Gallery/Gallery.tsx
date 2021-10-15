@@ -54,11 +54,12 @@ export const Gallery: FC<Props> = ({ selectedAlbum }) => {
     <>
       <FlatList
         onEndReached={fetchImages}
-        onEndReachedThreshold={1}
-        keyExtractor={(_, index) => `gallery-image-${index}`}
+        onEndReachedThreshold={0.5}
+        keyExtractor={(_, index) => `gallery-${selectedAlbum}-image-${index}`}
         data={groupedImages}
         showsVerticalScrollIndicator={false}
         renderItem={renderImageGroup}
+        initialNumToRender={5}
       />
     </>
   );
