@@ -1,6 +1,7 @@
 import React, { FC, useEffect, useState } from 'react';
-import { FlatList, Image, ListRenderItem } from 'react-native';
+import { FlatList, ListRenderItem } from 'react-native';
 import { Asset } from 'react-native-image-picker';
+import { getImageSize } from '../../helpers/getImageSize';
 import { useGalleryImages } from '../../hooks/useGalleryImages';
 import { useImageHandler } from '../../providers/ImageHandler';
 import { ImagesGroup } from './ImagesGroup';
@@ -39,8 +40,8 @@ export const Gallery: FC<Props> = ({ selectedAlbum }) => {
     }
   }, [images]);
 
-  const handleSetImage = (uri: string) =>
-    Image.getSize(uri, (width, height) => setImage({ uri, width, height }));
+  const handleSetImage = async (uri: string) =>
+    setImage({ ...(await getImageSize(uri)), uri });
 
   const renderImageGroup: ListRenderItem<Asset[]> = ({ index, item }) => (
     <ImagesGroup

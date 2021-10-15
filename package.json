@@ -21,6 +21,7 @@
     "react-native-fast-image": "^8.5.11",
     "react-native-image-pan-zoom": "^2.1.12",
     "react-native-image-picker": "^4.1.1",
+    "react-native-image-size": "^1.1.3",
     "react-native-safe-area-context": "^3.3.2",
     "react-native-screens": "^3.8.0",
     "react-native-share": "^7.1.2",

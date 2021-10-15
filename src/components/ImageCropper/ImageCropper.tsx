@@ -15,6 +15,7 @@ import { cropImage } from '../../helpers/cropImage';
 import { HandleCropFunction } from './models/HandleCropFunction';
 import { CenterOn } from './models/CenterOn';
 import ImageViewer from 'react-native-image-pan-zoom/built/image-zoom/image-zoom.component';
+import { getImageSize } from '../../helpers/getImageSize';
 
 interface Props {
   uri: string;
@@ -32,7 +33,9 @@ export const ImageCropper: FC<Props> = ({
   const styles = useStyles();
   const imageZoomRef: LegacyRef<ImageViewer> = useRef({} as ImageViewer);
 
-  const [originalImageDimensions, setOriginalImage] = useState<Dimensions>();
+  const [originalImageDimensions, setOriginalImageDimensions] =
+    useState<Dimensions>();
+
   const [imageDimensions, setImageDimensions] = useState<Dimensions>();
   const [areaDimensions, setAreaDimensions] = useState<Dimensions>();
   const [minScale, setMinScale] = useState<number>();
@@ -134,13 +137,9 @@ export const ImageCropper: FC<Props> = ({
     setAreaDimensions({ width, height });
   }, [windowDimensions, ratio]);
 
-  useEffect(
-    () =>
-      Image.getSize(uri, (width, height) =>
-        setOriginalImage({ width, height }),
-      ),
-    [uri],
-  );
+  useEffect(() => {
+    (async () => setOriginalImageDimensions(await getImageSize(uri)))();
+  }, [uri]);
 
   useEffect(() => {
     if (originalImageDimensions) {

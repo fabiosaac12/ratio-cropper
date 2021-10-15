@@ -1,12 +1,4 @@
 package com.fabiosaac.ratiocropper;
-import com.facebook.react.bridge.ReactApplicationContext;
-import com.facebook.react.bridge.ReactContextBaseJavaModule;
-import com.facebook.react.bridge.ReactMethod;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.util.HashMap;
-import java.util.Map;
 
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
@@ -17,6 +9,16 @@ import android.util.Log;
 import androidx.annotation.RequiresApi;
 
 import com.facebook.react.bridge.Promise;
+import com.facebook.react.bridge.ReactApplicationContext;
+import com.facebook.react.bridge.ReactContextBaseJavaModule;
+import com.facebook.react.bridge.ReactMethod;
+
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.util.HashMap;
+import java.util.Map;
+
 import static android.graphics.BitmapFactory.decodeFile;
 
 public class CropImageModule extends ReactContextBaseJavaModule {
@@ -32,36 +34,36 @@ public class CropImageModule extends ReactContextBaseJavaModule {
     @RequiresApi(api = Build.VERSION_CODES.N)
     @ReactMethod
     public void crop(
-        String path,
-        Integer x,
-        Integer y,
-        Integer width,
-        Integer height,
-        String format,
-        Promise promise
+            String path,
+            Integer x,
+            Integer y,
+            Integer width,
+            Integer height,
+            String format,
+            Promise promise
     ) {
         Log.d("format", format);
 
-        Map<String, String> formats = new HashMap<String, String>();
+        Map<String, String> formats = new HashMap<>();
         formats.put("jpg", "jpg");
         formats.put("jepg", "jpg");
         formats.put("png", "png");
         formats.put("webp", "webp");
 
-        Map<String, String> compressFormats = new HashMap<String, String>();
+        Map<String, String> compressFormats = new HashMap<>();
         compressFormats.put("jpg", "JEPG");
         compressFormats.put("jepg", "JEPG");
         compressFormats.put("png", "PNG");
         compressFormats.put("webp", "WEBP");
 
         String croppedImagePath = getReactApplicationContext().getApplicationInfo().dataDir +
-            File.separator +
-            "cache" +
-            File.separator +
-            "cropped-image-" +
-            System.currentTimeMillis() +
-            "." +
-            formats.getOrDefault(format, "png");
+                File.separator +
+                "cache" +
+                File.separator +
+                "cropped-image-" +
+                System.currentTimeMillis() +
+                "." +
+                formats.getOrDefault(format, "png");
 
         Log.d("cropped image path", croppedImagePath);
 
@@ -71,7 +73,7 @@ public class CropImageModule extends ReactContextBaseJavaModule {
             File imageFile = new File(path);
             Bitmap image = decodeFile(imageFile.getAbsolutePath());
 
-            Log.d("image size", String.valueOf(image.getHeight()) + String.valueOf(image.getWidth()));
+            Log.d("image size", String.valueOf(image.getHeight()) + image.getWidth());
 
             try {
                 ExifInterface exif = new ExifInterface(imageFile.getAbsolutePath());
@@ -96,7 +98,8 @@ public class CropImageModule extends ReactContextBaseJavaModule {
 
                     image = Bitmap.createBitmap(image, 0, 0, image.getWidth(), image.getHeight(), matrix, true);
                 }
-            } catch (Exception error) {}
+            } catch (Exception ignored) {
+            }
 
             croppedImage = Bitmap.createBitmap(image, x, y, width, height);
         } catch (Exception error) {
@@ -110,17 +113,25 @@ public class CropImageModule extends ReactContextBaseJavaModule {
 
         String compressFormat = compressFormats.getOrDefault(format, "PNG");
 
-        Log.d("compress format", compressFormat);
+        if (compressFormat == null) {
+            promise.reject("no compress formats", "No available compress formats");
+            return;
+        }
 
-        switch (compressFormat) {
-            case "JEPG":
-                croppedImage.compress(Bitmap.CompressFormat.JPEG, 100, bos);
-                break;
-            case "WEBP":
-                croppedImage.compress(Bitmap.CompressFormat.WEBP, 100, bos);
-                break;
-            default:
-                croppedImage.compress(Bitmap.CompressFormat.PNG, 100, bos);
+        try {
+            switch (compressFormat) {
+                case "JEPG":
+                    croppedImage.compress(Bitmap.CompressFormat.JPEG, 100, bos);
+                    break;
+                case "WEBP":
+                    croppedImage.compress(Bitmap.CompressFormat.WEBP, 100, bos);
+                    break;
+                default:
+                    croppedImage.compress(Bitmap.CompressFormat.PNG, 100, bos);
+            }
+        } catch (Exception error) {
+            promise.reject(error);
+            return;
         }
 
         byte[] croppedImageByteArray = bos.toByteArray();

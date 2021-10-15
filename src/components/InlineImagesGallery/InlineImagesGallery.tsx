@@ -1,16 +1,12 @@
 import React from 'react';
 import { Asset } from 'react-native-image-picker';
-import {
-  FlatList,
-  Image as RNImage,
-  ListRenderItem,
-  TouchableOpacity,
-} from 'react-native';
+import { FlatList, ListRenderItem, TouchableOpacity } from 'react-native';
 import { useStyles } from './InlineImagesGalleryStyles';
 import { useImageHandler } from '../../providers/ImageHandler';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { Image } from './Image';
 import { useGalleryImages } from '../../hooks/useGalleryImages';
+import { getImageSize } from '../../helpers/getImageSize';
 
 export const InlineImagesGallery = () => {
   const styles = useStyles();
@@ -18,8 +14,8 @@ export const InlineImagesGallery = () => {
     useImageHandler();
   const { fetchImages, images } = useGalleryImages();
 
-  const handleSetImage = (uri: string) =>
-    RNImage.getSize(uri, (width, height) => setImage({ uri, width, height }));
+  const handleSetImage = async (uri: string) =>
+    setImage({ ...(await getImageSize(uri)), uri });
 
   const renderItem: ListRenderItem<Asset> = ({ item, index }) => (
     <>
