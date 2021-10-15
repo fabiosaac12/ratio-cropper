@@ -26,6 +26,7 @@ import { useTheme } from '../Theme';
 import { usePermissions } from '../Permissions';
 import { useLoader } from '../Loader';
 import { simplifyRatio } from '../../helpers/simplifyRatio';
+import { getImageSize } from '../../helpers/getImageSize';
 
 export const ImageHandlerProvider: FC = ({ children }) => {
   const { theme } = useTheme();
@@ -64,7 +65,10 @@ export const ImageHandlerProvider: FC = ({ children }) => {
         quality: 1,
         mediaType: 'photo',
       },
-      ({ assets }) => assets?.length && setImage(assets[0]),
+      async ({ assets }) =>
+        assets?.length &&
+        assets[0].uri &&
+        setImage({ ...assets[0], ...(await getImageSize(assets[0].uri)) }),
     );
   };
 
@@ -74,7 +78,10 @@ export const ImageHandlerProvider: FC = ({ children }) => {
         quality: 1,
         mediaType: 'photo',
       },
-      ({ assets }) => assets?.length && setImage(assets[0]),
+      async ({ assets }) =>
+        assets?.length &&
+        assets[0].uri &&
+        setImage({ ...assets[0], ...(await getImageSize(assets[0].uri)) }),
     );
   };
 
