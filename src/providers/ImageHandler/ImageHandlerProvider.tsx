@@ -21,7 +21,6 @@ import { useModal } from '../Modal';
 import { InfoModal } from '../../components/InfoModal';
 import { SelectRatioModal } from '../../components/SelectRatioModal';
 import { navigationContainerRef } from '../../navigation/MainStackNavigator';
-import Snackbar from 'react-native-snackbar';
 import { useTheme } from '../Theme';
 import { usePermissions } from '../Permissions';
 import { useLoader } from '../Loader';
@@ -100,28 +99,24 @@ export const ImageHandlerProvider: FC = ({ children }) => {
             (share && (await handleShareImage(path))) || undefined;
 
           ((share && shareResponse?.success) || save) &&
-            Snackbar.show({
-              text: 'All good :)',
-              duration: Snackbar.LENGTH_SHORT,
-              textColor: theme.palette.primary[500],
-              backgroundColor: theme.palette.background[300],
-              action: {
-                text: ':)',
-                onPress: Snackbar.dismiss,
-                textColor: theme.palette.primary[500],
-              },
+            modal.handleOpen({
+              content: (
+                <InfoModal
+                  title="All good :)"
+                  buttonText=":)"
+                  variant="success"
+                />
+              ),
             });
         } catch (e) {
-          Snackbar.show({
-            text: 'An error has occurred >:c',
-            duration: Snackbar.LENGTH_SHORT,
-            textColor: theme.palette.danger[500],
-            backgroundColor: theme.palette.background[300],
-            action: {
-              text: 'Oh :(',
-              onPress: Snackbar.dismiss,
-              textColor: theme.palette.danger[500],
-            },
+          modal.handleOpen({
+            content: (
+              <InfoModal
+                title="An error has occurred >:c"
+                buttonText="Oh :("
+                variant="danger"
+              />
+            ),
           });
         }
         const newRecentlyUsedRatios =

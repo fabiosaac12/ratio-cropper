@@ -1,7 +1,11 @@
 import { StyleSheet } from 'react-native';
 import { makeStyles } from '../../providers/Theme';
 
-export const useStyles = makeStyles((theme) =>
+interface Props {
+  variant: 'primary' | 'secondary' | 'danger' | 'success';
+}
+
+export const useStyles = makeStyles((theme, { variant }: Props) =>
   StyleSheet.create({
     container: {
       padding: theme.spacing(3),
@@ -10,8 +14,8 @@ export const useStyles = makeStyles((theme) =>
       textAlign: 'center',
       color:
         theme.name === 'light'
-          ? theme.palette.primary[800]
-          : theme.palette.primary[200],
+          ? theme.palette[variant][800]
+          : theme.palette[variant][200],
       marginBottom: 15,
     },
   }),

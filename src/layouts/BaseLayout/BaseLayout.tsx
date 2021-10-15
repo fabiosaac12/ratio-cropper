@@ -9,8 +9,8 @@ export const BaseLayout: React.FC = ({ children }) => {
 
   return (
     <>
-      <Loader />
       <Modal />
+      <Loader />
       <View style={style.layout}>{children}</View>
     </>
   );

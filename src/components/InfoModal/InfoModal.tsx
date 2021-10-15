@@ -9,14 +9,16 @@ interface Props {
   title: string;
   buttonOnPress?: () => void;
   buttonText: string;
+  variant?: 'primary' | 'secondary' | 'danger' | 'success';
 }
 
 export const InfoModal: FC<Props> = ({
   title,
   buttonText,
   buttonOnPress = () => null,
+  variant = 'primary',
 }) => {
-  const styles = useStyles();
+  const styles = useStyles({ variant });
   const modal = useModal();
 
   return (
@@ -26,7 +28,7 @@ export const InfoModal: FC<Props> = ({
       </Text>
       <Button
         variant="outlined"
-        color="primary"
+        color={variant}
         title={buttonText}
         onPress={() => {
           modal.handleHide();
