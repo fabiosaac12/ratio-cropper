@@ -12,11 +12,12 @@ import {
   View,
 } from 'react-native';
 import { useStyles } from './SelectRatioModalStyles';
-import { defaultRatios } from './helpers';
+import { getDefaultRatios } from './helpers';
 import { Text } from '../Text';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { CustomRatioPicker } from './CustomRatioPicker';
 import { simplifyRatio } from '../../helpers/simplifyRatio';
+import { useMessages } from './SelectRatioModalMessages';
 
 const screen = Dimensions.get('screen');
 
@@ -24,6 +25,7 @@ const screenRatio: Ratio = simplifyRatio([screen.height, screen.width]);
 
 export const SelectRatioModal = () => {
   const styles = useStyles();
+  const messages = useMessages();
   const modal = useModal();
   const { setRatio, recentlyUsedRatiosRef } = useImageHandler();
 
@@ -41,7 +43,7 @@ export const SelectRatioModal = () => {
         </View>
 
         <View style={styles.section}>
-          <Text style={styles.title}>Your Phone Screen Ratio</Text>
+          <Text style={styles.title}>{messages.phoneRatios}</Text>
           <View style={styles.ratiosContainer}>
             <Button
               style={styles.ratio}
@@ -60,7 +62,7 @@ export const SelectRatioModal = () => {
 
         {!!recentlyUsedRatiosRef.current.length && (
           <View style={styles.section}>
-            <Text style={styles.title}>Recently Used Ratios</Text>
+            <Text style={styles.title}>{messages.recentlyUsedRatios}</Text>
             <View style={styles.ratiosContainer}>
               {recentlyUsedRatiosRef.current.map((ratio) => (
                 <Button
@@ -76,11 +78,12 @@ export const SelectRatioModal = () => {
         )}
 
         <Text style={[styles.title, styles.secondaryTextColor, styles.section]}>
-          Default Ratios
+          {messages.defaultRatios}
         </Text>
         <View>
-          {defaultRatios.map((defaultRatios) => (
+          {getDefaultRatios().map((defaultRatios, index) => (
             <FlatList
+              key={`defaultRatios-${index}`}
               contentContainerStyle={styles.section}
               showsHorizontalScrollIndicator={false}
               data={defaultRatios}

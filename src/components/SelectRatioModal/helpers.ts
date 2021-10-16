@@ -1,70 +1,75 @@
 import { DefaultRatios } from './models/DefaultRatios';
+import { useMessages } from './SelectRatioModalMessages';
 
-export const defaultRatios: DefaultRatios = [
-  [
-    {
-      ratio: [1, 1],
-      icon: 'logo-twitter',
-      text: 'Profile',
-    },
-    {
-      ratio: [1, 3],
-      icon: 'logo-twitter',
-      text: 'Banner',
-    },
-    {
-      ratio: [9, 16],
-      icon: 'logo-twitter',
-      text: 'Post',
-    },
-  ],
-  [
-    {
-      ratio: [1, 1],
-      icon: 'logo-facebook',
-      text: 'Post',
-    },
-    {
-      ratio: [11, 21],
-      icon: 'logo-facebook',
-      text: 'Landscape',
-    },
-    {
-      ratio: [5, 4],
-      icon: 'logo-facebook',
-      text: 'Portrait',
-    },
-    {
-      ratio: [16, 9],
-      icon: 'logo-facebook',
-      text: 'Story',
-    },
-  ],
-  [
-    {
-      ratio: [1, 1],
-      icon: 'logo-instagram',
-      text: 'Post',
-    },
-    {
-      ratio: [11, 21],
-      icon: 'logo-instagram',
-      text: 'Landscape',
-    },
-    {
-      ratio: [5, 4],
-      icon: 'logo-instagram',
-      text: 'Portrait',
-    },
-    {
-      ratio: [16, 9],
-      icon: 'logo-instagram',
-      text: 'Story',
-    },
-    {
-      ratio: [76, 49],
-      icon: 'logo-instagram',
-      text: 'IGTV',
-    },
-  ],
-];
+export const getDefaultRatios: () => DefaultRatios = () => {
+  const messages = useMessages();
+
+  return [
+    [
+      {
+        ratio: [1, 1],
+        icon: 'logo-twitter',
+        text: messages.profile,
+      },
+      {
+        ratio: [1, 3],
+        icon: 'logo-twitter',
+        text: messages.banner,
+      },
+      {
+        ratio: [9, 16],
+        icon: 'logo-twitter',
+        text: messages.post,
+      },
+    ],
+    [
+      {
+        ratio: [1, 1],
+        icon: 'logo-facebook',
+        text: messages.post,
+      },
+      {
+        ratio: [11, 21],
+        icon: 'logo-facebook',
+        text: messages.landscape,
+      },
+      {
+        ratio: [5, 4],
+        icon: 'logo-facebook',
+        text: messages.portrait,
+      },
+      {
+        ratio: [16, 9],
+        icon: 'logo-facebook',
+        text: messages.story,
+      },
+    ],
+    [
+      {
+        ratio: [1, 1],
+        icon: 'logo-instagram',
+        text: messages.post,
+      },
+      {
+        ratio: [11, 21],
+        icon: 'logo-instagram',
+        text: messages.landscape,
+      },
+      {
+        ratio: [5, 4],
+        icon: 'logo-instagram',
+        text: messages.portrait,
+      },
+      {
+        ratio: [16, 9],
+        icon: 'logo-instagram',
+        text: messages.story,
+      },
+      {
+        ratio: [76, 49],
+        icon: 'logo-instagram',
+        text: messages.igtv,
+      },
+    ],
+  ];
+};

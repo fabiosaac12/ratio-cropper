@@ -9,6 +9,7 @@ import { HomeScreen } from '../../screens/HomeScreen';
 import { useTheme } from '../../providers/Theme';
 import { Image } from 'react-native';
 import { images } from '../../assets';
+import { useMessages } from './MainStackNavigatorMessages';
 
 export type MainStackNavigatorParams = {
   home: undefined;
@@ -21,6 +22,7 @@ export const navigationContainerRef =
   createNavigationContainerRef<MainStackNavigatorParams>();
 
 export const MainStackNavigator = () => {
+  const messages = useMessages();
   const { theme } = useTheme();
 
   return (
@@ -60,7 +62,10 @@ export const MainStackNavigator = () => {
         <Stack.Screen
           name="cropImage"
           component={CropImageScreen}
-          options={{ title: 'Crop Image', headerLargeTitle: false }}
+          options={{
+            title: messages.cropImageScreenTitle,
+            headerLargeTitle: false,
+          }}
         />
       </Stack.Navigator>
     </NavigationContainer>

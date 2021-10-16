@@ -1,10 +1,6 @@
 import React, { FC, useEffect, useRef, useState } from 'react';
 import { Linking } from 'react-native';
-import {
-  Asset,
-  launchCamera,
-  launchImageLibrary,
-} from 'react-native-image-picker';
+import { Asset } from 'react-native-image-picker';
 import {
   ImageHandlerContext,
   ImageHandlerContextProps,
@@ -14,6 +10,8 @@ import {
   handleSaveImage,
   handleUpdateRecentlyUsedRatios,
   handleShareImage,
+  takePhotoFromGallery,
+  takePhoto,
 } from './helpers';
 import { ImageCropperRef } from '../../components/ImageCropper/models/ImageCropperRef';
 import { getItem } from '../../helpers/localStorage';
@@ -21,14 +19,13 @@ import { useModal } from '../Modal';
 import { InfoModal } from '../../components/InfoModal';
 import { SelectRatioModal } from '../../components/SelectRatioModal';
 import { navigationContainerRef } from '../../navigation/MainStackNavigator';
-import { useTheme } from '../Theme';
 import { usePermissions } from '../Permissions';
 import { useLoader } from '../Loader';
 import { simplifyRatio } from '../../helpers/simplifyRatio';
-import { getImageSize } from '../../helpers/getImageSize';
+import { useMessages } from './ImageHandlerProviderMessages';
 
 export const ImageHandlerProvider: FC = ({ children }) => {
-  const { theme } = useTheme();
+  const messages = useMessages();
   const permissions = usePermissions();
   const modal = useModal();
   const loader = useLoader();
@@ -58,31 +55,9 @@ export const ImageHandlerProvider: FC = ({ children }) => {
     })();
   }, []);
 
-  const handleTakePhotoFromGallery = async () => {
-    launchImageLibrary(
-      {
-        quality: 1,
-        mediaType: 'photo',
-      },
-      async ({ assets }) =>
-        assets?.length &&
-        assets[0].uri &&
-        setImage({ ...assets[0], ...(await getImageSize(assets[0].uri)) }),
-    );
-  };
+  const handleTakePhotoFromGallery = async () => takePhotoFromGallery(setImage);
 
-  const handleTakePhoto = async () => {
-    launchCamera(
-      {
-        quality: 1,
-        mediaType: 'photo',
-      },
-      async ({ assets }) =>
-        assets?.length &&
-        assets[0].uri &&
-        setImage({ ...assets[0], ...(await getImageSize(assets[0].uri)) }),
-    );
-  };
+  const handleTakePhoto = async () => takePhoto(setImage);
 
   const handleCrop = async (params?: { save?: boolean; share?: boolean }) => {
     const { save = true, share = false } = params || {};
@@ -102,8 +77,8 @@ export const ImageHandlerProvider: FC = ({ children }) => {
             modal.handleOpen({
               content: (
                 <InfoModal
-                  title="All good :)"
-                  buttonText=":)"
+                  title={messages.allGod}
+                  buttonText={messages.happyOk}
                   variant="success"
                 />
               ),
@@ -112,8 +87,8 @@ export const ImageHandlerProvider: FC = ({ children }) => {
           modal.handleOpen({
             content: (
               <InfoModal
-                title="An error has occurred >:c"
-                buttonText="Oh :("
+                title={messages.error}
+                buttonText={messages.sadOk}
                 variant="danger"
               />
             ),
@@ -129,8 +104,9 @@ export const ImageHandlerProvider: FC = ({ children }) => {
         modal.handleOpen({
           content: (
             <InfoModal
-              title="I need your permission :c"
-              buttonText="Open settings"
+              variant="primary"
+              title={messages.permissionNeeded}
+              buttonText={messages.openSettings}
               buttonOnPress={() => Linking.openSettings()}
             />
           ),

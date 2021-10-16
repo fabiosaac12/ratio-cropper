@@ -11,12 +11,14 @@ import { useStyles } from './HomeScreenStyles';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { Text } from '../../components/Text';
 import { ThemeButton } from '../../components/ThemeButton';
+import { useMessages } from './HomeScreenMessages';
 
 interface Props
   extends NativeStackScreenProps<MainStackNavigatorParams, 'home'> {}
 
 export const HomeScreen = withLayout<Props>(() => {
   const styles = useStyles();
+  const messages = useMessages();
   const { albums, selectedAlbum, setSelectedAlbum } = useAlbums();
   const sectionListRef = useRef<SectionList<any, any> | null>();
 
@@ -65,13 +67,13 @@ export const HomeScreen = withLayout<Props>(() => {
                   onPress={handleTakePhotoFromGallery}
                 >
                   <Icon size={26} name={'image'} style={styles.buttonIcon} />
-                  <Text variant="button">Open phone gallery</Text>
+                  <Text variant="button">{messages.openGallery}</Text>
                 </Button>
                 <ThemeButton style={styles.themeButton} />
               </View>
               <Button style={styles.button} onPress={handleTakePhoto}>
                 <Icon size={26} name={'camera'} style={styles.buttonIcon} />
-                <Text variant="button">Take a photo</Text>
+                <Text variant="button">{messages.takePhoto}</Text>
               </Button>
             </View>
           ),

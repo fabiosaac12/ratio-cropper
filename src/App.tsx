@@ -7,6 +7,7 @@ import { PermissionsProvider } from './providers/Permissions';
 import { ThemeProvider } from './providers/Theme';
 import SplashScreen from 'react-native-splash-screen';
 import { LoaderProvider } from './providers/Loader';
+import { LanguageProvider } from './providers/LanguageProvider';
 
 export const App = () => {
   useEffect(() => {
@@ -15,17 +16,19 @@ export const App = () => {
 
   return (
     <SafeAreaProvider>
-      <LoaderProvider>
-        <PermissionsProvider>
-          <ThemeProvider defaultTheme="light">
-            <ModalProvider>
-              <ImageHandlerProvider>
-                <MainStackNavigator />
-              </ImageHandlerProvider>
-            </ModalProvider>
-          </ThemeProvider>
-        </PermissionsProvider>
-      </LoaderProvider>
+      <LanguageProvider defaultLanguage="en">
+        <LoaderProvider>
+          <PermissionsProvider>
+            <ThemeProvider defaultTheme="light">
+              <ModalProvider>
+                <ImageHandlerProvider>
+                  <MainStackNavigator />
+                </ImageHandlerProvider>
+              </ModalProvider>
+            </ThemeProvider>
+          </PermissionsProvider>
+        </LoaderProvider>
+      </LanguageProvider>
     </SafeAreaProvider>
   );
 };
