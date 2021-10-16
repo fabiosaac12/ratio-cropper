@@ -9,6 +9,8 @@ export const Modal: React.FC = () => {
 
   return (
     <RNModal
+      hardwareAccelerated
+      renderToHardwareTextureAndroid
       animationType="slide"
       transparent={true}
       visible={visible}

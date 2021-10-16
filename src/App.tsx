@@ -8,6 +8,7 @@ import { ThemeProvider } from './providers/Theme';
 import SplashScreen from 'react-native-splash-screen';
 import { LoaderProvider } from './providers/Loader';
 import { LanguageProvider } from './providers/LanguageProvider';
+import { ImagePreviewModalProvider } from './providers/ImagePreviewModal';
 
 export const App = () => {
   useEffect(() => {
@@ -21,9 +22,11 @@ export const App = () => {
           <PermissionsProvider>
             <ThemeProvider defaultTheme="light">
               <ModalProvider>
-                <ImageHandlerProvider>
-                  <MainStackNavigator />
-                </ImageHandlerProvider>
+                <ImagePreviewModalProvider>
+                  <ImageHandlerProvider>
+                    <MainStackNavigator />
+                  </ImageHandlerProvider>
+                </ImagePreviewModalProvider>
               </ModalProvider>
             </ThemeProvider>
           </PermissionsProvider>

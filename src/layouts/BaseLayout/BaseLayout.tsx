@@ -1,5 +1,6 @@
 import React from 'react';
 import { View } from 'react-native';
+import { ImagePreviewModal } from '../../components/ImagePreviewModal';
 import { Loader } from '../../components/Loader';
 import { Modal } from '../../components/Modal';
 import { useStyles } from './BaseLayoutStyles';
@@ -11,6 +12,7 @@ export const BaseLayout: React.FC = ({ children }) => {
     <>
       <Modal />
       <Loader />
+      <ImagePreviewModal />
       <View style={style.layout}>{children}</View>
     </>
   );

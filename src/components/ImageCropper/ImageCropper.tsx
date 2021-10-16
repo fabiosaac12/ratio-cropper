@@ -2,6 +2,7 @@ import React, { FC, LegacyRef, useEffect, useRef, useState } from 'react';
 import {
   Image,
   ImageBackground,
+  TouchableOpacity,
   useWindowDimensions,
   View,
 } from 'react-native';
@@ -16,6 +17,7 @@ import { HandleCropFunction } from './models/HandleCropFunction';
 import { CenterOn } from './models/CenterOn';
 import ImageViewer from 'react-native-image-pan-zoom/built/image-zoom/image-zoom.component';
 import { getImageSize } from '../../helpers/getImageSize';
+import { useImagePreviewModal } from '../../providers/ImagePreviewModal';
 
 interface Props {
   uri: string;
@@ -29,8 +31,9 @@ export const ImageCropper: FC<Props> = ({
   imageCropperRef,
   children,
 }) => {
-  const windowDimensions = useWindowDimensions();
   const styles = useStyles();
+  const imagePreviewModal = useImagePreviewModal();
+  const windowDimensions = useWindowDimensions();
   const imageZoomRef: LegacyRef<ImageViewer> = useRef({} as ImageViewer);
 
   const [originalImageDimensions, setOriginalImageDimensions] =
@@ -164,6 +167,17 @@ export const ImageCropper: FC<Props> = ({
 
   return (
     <ImageBackground source={{ uri }} style={styles.container} blurRadius={10}>
+      <TouchableOpacity
+        activeOpacity={1}
+        onLongPress={() => imagePreviewModal.handleOpen(uri)}
+        style={{
+          position: 'absolute',
+          top: 0,
+          bottom: 0,
+          left: 0,
+          right: 0,
+        }}
+      />
       {children}
       <View style={[styles.verticalArea, areaDimensions]} pointerEvents="none">
         {[1, 2, 3, 4].map((id) => (
@@ -195,6 +209,7 @@ export const ImageCropper: FC<Props> = ({
           enableDoubleClickZoom={false}
           maxOverflow={0}
           swipeDownThreshold={0}
+          onLongPress={() => imagePreviewModal.handleOpen(uri)}
         >
           <Image
             style={{

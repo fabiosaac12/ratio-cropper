@@ -3,6 +3,7 @@ import { TouchableOpacity, View } from 'react-native';
 import { Asset } from 'react-native-image-picker';
 import { useStyles } from './ImagesGroupStyles';
 import FastImage from 'react-native-fast-image';
+import { useImagePreviewModal } from '../../../providers/ImagePreviewModal';
 
 interface Props {
   groupIndex: number;
@@ -13,6 +14,7 @@ interface Props {
 export const ImagesGroup = memo<Props>(
   ({ groupIndex, handleSetImage, images }) => {
     const styles = useStyles();
+    const imagePreviewModal = useImagePreviewModal();
 
     return (
       <View style={styles.container}>
@@ -21,6 +23,8 @@ export const ImagesGroup = memo<Props>(
             key={`${groupIndex}.${index}-gallery-image`}
             style={styles.imageWrapper}
             onPress={() => handleSetImage(image.uri!)}
+            onLongPress={() => imagePreviewModal.handleOpen(image.uri!)}
+            onPressOut={() => imagePreviewModal.handleHide()}
           >
             <FastImage style={styles.image} source={image} />
           </TouchableOpacity>

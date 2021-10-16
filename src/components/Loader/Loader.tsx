@@ -10,7 +10,13 @@ export const Loader = () => {
   const styles = useStyles();
 
   return (
-    <Modal animationType="fade" transparent visible={visible}>
+    <Modal
+      hardwareAccelerated
+      renderToHardwareTextureAndroid
+      animationType="fade"
+      transparent
+      visible={visible}
+    >
       <View style={styles.backdrop}>
         <ActivityIndicator size="large" color={theme.palette.primary[500]} />
       </View>
