@@ -1,8 +1,6 @@
 import { light } from './light';
 import { dark } from './dark';
-import { Theme } from '../models/Theme';
 import { Themes } from '../models/Themes';
+import { AvailableThemes } from '../models/AvailableThemes';
 
-export const themes: Themes = { light, dark };
-
-export const addTheme = (name: string, theme: Theme) => (themes[name] = theme);
+export const themes: Themes<AvailableThemes> = { light, dark };

@@ -40,6 +40,7 @@ export const ImagePreviewModal: React.FC = () => {
 
   return (
     <RNModal
+      statusBarTranslucent
       hardwareAccelerated
       renderToHardwareTextureAndroid
       animationType="fade"

@@ -1,5 +1,3 @@
 import { Theme } from './Theme';
 
-export interface Themes {
-  [key: string]: Theme;
-}
+export type Themes<T extends string> = Record<T, Theme>;

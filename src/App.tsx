@@ -12,7 +12,7 @@ import { ImagePreviewModalProvider } from './providers/ImagePreviewModal';
 
 export const App = () => {
   useEffect(() => {
-    SplashScreen.hide();
+    setTimeout(() => SplashScreen.hide(), 1000);
   }, []);
 
   return (

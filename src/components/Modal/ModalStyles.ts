@@ -16,7 +16,7 @@ export const useStyles = makeStyles((theme) =>
       borderBottomRightRadius: 0,
       width: '100%',
       maxHeight: '90%',
-      ...theme.shadows[2],
+      ...theme.shadows[4],
     },
   }),
 );

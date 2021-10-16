@@ -1,14 +1,17 @@
 import React from 'react';
-import { Modal as RNModal, TouchableOpacity } from 'react-native';
+import { Modal as RNModal, StatusBar, TouchableOpacity } from 'react-native';
 import { useModal } from '../../providers/Modal';
+import { useTheme } from '../../providers/Theme';
 import { useStyles } from './ModalStyles';
 
 export const Modal: React.FC = () => {
+  const { theme } = useTheme();
   const { handleHide, visible, content } = useModal();
   const styles = useStyles();
 
   return (
     <RNModal
+      statusBarTranslucent
       hardwareAccelerated
       renderToHardwareTextureAndroid
       animationType="slide"

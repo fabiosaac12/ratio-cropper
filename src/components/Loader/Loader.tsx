@@ -11,6 +11,7 @@ export const Loader = () => {
 
   return (
     <Modal
+      statusBarTranslucent
       hardwareAccelerated
       renderToHardwareTextureAndroid
       animationType="fade"
